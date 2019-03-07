@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.SeeYourTurnActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/service_single_back" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:src="@drawable/ic_left_arrow" />
+
+    <ImageView
+        android:id="@+id/product_item"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_100"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_12"
+        android:src="@drawable/logo1" />
+
+    <TextView
+        android:id="@+id/item_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/product_item"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_5"
+        android:text="Your Turn"
+        android:textAllCaps="true"
+        android:textColor="@color/white" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/settingCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_text"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_10"
+        app:cardCornerRadius="@dimen/dp_10">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/titleName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hair Cutting"
+                android:layout_marginTop="@dimen/dp_6"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_16"
+                android:layout_marginBottom="@dimen/dp_6"
+                android:layout_centerHorizontal="true"/>
+            <TextView
+                android:visibility="visible"
+                android:layout_below="@id/titleName"
+                android:id="@+id/barbarName"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginStart="@dimen/dp_10"
+                android:textSize="@dimen/sp_16"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Arfid"/>
+
+            <ImageView
+                android:id="@+id/clock"
+                android:layout_below="@id/barbarName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_calendar"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"/>
+
+            <TextView
+                android:id="@+id/dateType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_16"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_below="@id/barbarName"
+                android:layout_toEndOf="@id/clock"
+                android:text="Monday December 20,2018"/>
+
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/timeclock"
+                android:layout_below="@id/clock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_clock_circular_outline"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"/>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/timeType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_16"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_below="@id/clock"
+                android:layout_toEndOf="@id/timeclock"
+                android:text="4:00Pm"/>
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/salone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_salon"
+                android:layout_below="@id/timeType"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:layout_marginStart="@dimen/dp_10"/>
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/servicename"
+                android:layout_toEndOf="@id/salone"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/timeType"
+                android:text="Hair Cut"/>
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/payment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_paymenttype_img"
+                android:layout_below="@id/servicename"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:layout_marginStart="@dimen/dp_10"/>
+            <TextView
+                android:visibility="gone"
+                android:layout_toEndOf="@id/payment"
+                android:id="@+id/paymentType"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/servicename"
+                android:text="Cash"/>
+
+            <LinearLayout
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:orientation="vertical"
+                android:id="@+id/listturn"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_below="@id/paymentType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/queueList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+                <!--<RelativeLayout-->
+                    <!--android:layout_marginTop="@dimen/dp_10"-->
+                    <!--android:layout_marginBottom="4dp"-->
+                    <!--android:layout_marginStart="@dimen/dp_10"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content">-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/firstUseName"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:textSize="@dimen/sp_16"-->
+                    <!--android:textColor="@color/light_yellow"-->
+                    <!--android:textAllCaps="true"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="1. John"/>-->
+
+
+                    <!--<TextView-->
+                        <!--android:layout_marginStart="@dimen/dp_16"-->
+                        <!--android:layout_toEndOf="@id/firstUseName"-->
+                        <!--android:id="@+id/firstUserService"-->
+                        <!--android:textSize="@dimen/sp_16"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:textAllCaps="false"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Bear (Cash)"/>-->
+
+                <!--</RelativeLayout>-->
+
+                <!--<RelativeLayout-->
+                    <!--android:layout_marginTop="@dimen/dp_10"-->
+                    <!--android:layout_marginBottom="4dp"-->
+                    <!--android:layout_marginStart="@dimen/dp_10"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content">-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/secondUseName"-->
+                        <!--android:textStyle="bold"-->
+                        <!--android:textSize="@dimen/sp_16"-->
+                        <!--android:textColor="@color/light_yellow"-->
+                        <!--android:textAllCaps="true"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="2. Jenni"/>-->
+
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/secondUserService"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentBottom="true"-->
+                        <!--android:layout_marginStart="@dimen/dp_16"-->
+                        <!--android:layout_marginBottom="0dp"-->
+                        <!--android:layout_toEndOf="@id/secondUseName"-->
+                        <!--android:text="Hair cut (Credit Card)"-->
+                        <!--android:textAllCaps="false"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:textSize="@dimen/sp_16" />-->
+
+                <!--</RelativeLayout>-->
+
+                <!--<RelativeLayout-->
+                    <!--android:layout_marginTop="@dimen/dp_10"-->
+                    <!--android:layout_marginBottom="4dp"-->
+                    <!--android:layout_marginStart="@dimen/dp_10"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content">-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/thirdUseName"-->
+                        <!--android:textStyle="bold"-->
+                        <!--android:textSize="@dimen/sp_16"-->
+                        <!--android:textColor="@color/light_yellow"-->
+                        <!--android:textAllCaps="true"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="3. You"/>-->
+
+
+                    <!--<TextView-->
+                        <!--android:layout_marginStart="@dimen/dp_16"-->
+                        <!--android:layout_toEndOf="@id/thirdUseName"-->
+                        <!--android:id="@+id/thirdUserService"-->
+                        <!--android:textSize="@dimen/sp_16"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:textAllCaps="false"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Hair and Bear(Cash)"/>-->
+
+                <!--</RelativeLayout>-->
+
+                <!--<RelativeLayout-->
+                    <!--android:layout_marginTop="@dimen/dp_10"-->
+                    <!--android:layout_marginBottom="4dp"-->
+                    <!--android:layout_marginStart="@dimen/dp_10"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content">-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/fourthUseName"-->
+                        <!--android:textStyle="bold"-->
+                        <!--android:textSize="@dimen/sp_16"-->
+                        <!--android:textColor="@color/light_yellow"-->
+                        <!--android:textAllCaps="true"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="1. John"/>-->
+
+
+                    <!--<TextView-->
+                        <!--android:layout_marginStart="@dimen/dp_16"-->
+                        <!--android:layout_toEndOf="@id/fourthUseName"-->
+                        <!--android:id="@+id/fourthUserService"-->
+                        <!--android:textSize="@dimen/sp_16"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:textAllCaps="false"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Hair Cut (PayPal)"/>-->
+
+                <!--</RelativeLayout>-->
+            </LinearLayout>
+        </RelativeLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

@@ -1,0 +1,1445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".Activities.MyServiceFirstActivity">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="160dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/service_single_back" />
+            </RelativeLayout>
+
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:src="@drawable/ic_left_arrow" />
+
+            <ImageView
+                android:id="@+id/product_item"
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_100"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_12"
+                android:src="@drawable/hair_cutting" />
+
+            <TextView
+                android:id="@+id/item_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/product_item"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="Hair Cutting"
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/settingCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_text"
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_10"
+                app:cardCornerRadius="@dimen/dp_10">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:id="@+id/search"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginStart="@dimen/dp_14"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_14"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        android:background="@drawable/back_ring">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="@dimen/dp_14"
+                            android:layout_marginEnd="@dimen/dp_14"
+                            android:background="@null"
+                            android:drawableStart="@drawable/ic_search"
+                            android:drawablePadding="@dimen/dp_10"
+                            android:hint="Search services" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/beard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/search"
+                        android:layout_marginStart="@dimen/dp_14"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:layout_marginEnd="@dimen/dp_14"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        android:background="@drawable/back_ring">
+
+                        <TextView
+                            android:id="@+id/textbeard"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="@dimen/dp_10"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_marginBottom="@dimen/dp_10"
+                            android:text="Beard"
+                            android:textAllCaps="true"
+                            android:textColor="@color/light_yellow"
+                            android:textSize="@dimen/sp_16" />
+
+                        <ImageView
+                            android:id="@+id/beardArrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_marginEnd="@dimen/dp_10"
+                            android:src="@drawable/light_yellow_right_arrow" />
+
+                        <ImageView
+                            android:id="@+id/beardArrowDown"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_marginEnd="@dimen/dp_10"
+                            android:src="@drawable/ic_down_arrow"
+                            android:visibility="gone" />
+
+
+                        <RelativeLayout
+                            android:id="@+id/innerberad"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/textbeard"
+                            android:visibility="gone">
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/blow3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/blowdraycircle3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_circle" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toEndOf="@id/blowdraycircle3"
+                                        android:text="Blow-Dry"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 5.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/art3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/blow3"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/hairartraycircle3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_circle" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toEndOf="@id/hairartraycircle3"
+                                        android:text="Hair Art"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 10.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/cut3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/art3"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/cutdraycircle3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_circle" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toEndOf="@id/cutdraycircle3"
+                                        android:text="Hair cut"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 6.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/shaving3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/cut3"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/shavingdraycircle3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_circle" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toEndOf="@id/shavingdraycircle3"
+                                        android:text="Hair Shaving"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 6.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/lonehair3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/shaving3"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/lonehairdraycircle3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_circle" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toStartOf="@id/lonepay3"
+                                        android:layout_toEndOf="@id/lonehairdraycircle3"
+                                        android:maxLines="1"
+                                        android:text="Karatine fornt of long hair"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:id="@+id/lonepay3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 6.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/shorhair3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/lonehair3"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/shortraycircle3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_radio_on_button" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toStartOf="@id/shortpay3"
+                                        android:layout_toEndOf="@id/shortraycircle3"
+                                        android:maxLines="1"
+                                        android:text="Karatine fornt of short hair"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/light_yellow" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:id="@+id/shortpay3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 6.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/light_yellow" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/Facial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/beard"
+                        android:layout_marginStart="@dimen/dp_14"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:layout_marginEnd="@dimen/dp_14"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        android:background="@drawable/back_ring">
+
+                        <TextView
+                            android:id="@+id/textfacial"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="@dimen/dp_10"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_marginBottom="@dimen/dp_10"
+                            android:text="Facial"
+                            android:textAllCaps="true"
+                            android:textColor="@color/light_yellow"
+                            android:textSize="@dimen/sp_16" />
+
+                        <ImageView
+                            android:id="@+id/facialArrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_marginEnd="@dimen/dp_10"
+                            android:src="@drawable/light_yellow_right_arrow" />
+
+                        <ImageView
+                            android:id="@+id/facialArrowDown"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_marginEnd="@dimen/dp_10"
+                            android:src="@drawable/ic_down_arrow"
+                            android:visibility="gone" />
+
+
+                        <RelativeLayout
+                            android:id="@+id/innerFacial"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/textfacial"
+                            android:visibility="gone">
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/blow2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/blowdraycircle2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_circle" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toEndOf="@id/blowdraycircle2"
+                                        android:text="Blow-Dry"
+                                        android:textAllCaps="true"
+                                        android:textSize="@dimen/dp_12"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 5.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/art2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/blow2"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/hairartraycircle2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_circle" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toEndOf="@id/hairartraycircle2"
+                                        android:text="Hair Art"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 10.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/cut2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/art2"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/cutdraycircle2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_circle" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toEndOf="@id/cutdraycircle2"
+                                        android:text="Hair cut"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 6.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/shaving2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/cut2"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/shavingdraycircle2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_circle" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toEndOf="@id/shavingdraycircle2"
+                                        android:text="Hair Shaving"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 6.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/lonehair2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/shaving2"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/lonehairdraycircle2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_circle" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toStartOf="@id/lonepay2"
+                                        android:layout_toEndOf="@id/lonehairdraycircle2"
+                                        android:maxLines="1"
+                                        android:text="Karatine fornt of long hair"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:id="@+id/lonepay2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 6.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/shorhair2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/lonehair2"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/shortraycircle2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_radio_on_button" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toStartOf="@id/shortpay2"
+                                        android:layout_toEndOf="@id/shortraycircle2"
+                                        android:maxLines="1"
+                                        android:text="Karatine fornt of short hair"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/light_yellow" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:id="@+id/shortpay2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 6.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/light_yellow" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/hairColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/Facial"
+                        android:layout_marginStart="@dimen/dp_14"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:layout_marginEnd="@dimen/dp_14"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        android:background="@drawable/back_ring">
+
+                        <TextView
+                            android:id="@+id/texthaircolor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="@dimen/dp_10"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_marginBottom="@dimen/dp_10"
+                            android:text="Hair Color"
+                            android:textAllCaps="true"
+                            android:textColor="@color/light_yellow"
+                            android:textSize="@dimen/sp_16" />
+
+                        <ImageView
+                            android:id="@+id/hairColorArrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_marginEnd="@dimen/dp_10"
+                            android:src="@drawable/light_yellow_right_arrow" />
+
+                        <ImageView
+                            android:id="@+id/hairColorArrowDown"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_marginEnd="@dimen/dp_10"
+                            android:src="@drawable/ic_down_arrow"
+                            android:visibility="gone" />
+
+
+                        <RelativeLayout
+                            android:id="@+id/innerhairColor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/texthaircolor"
+                            android:visibility="gone">
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/blow1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/blowdraycircle1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_circle" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toEndOf="@id/blowdraycircle1"
+                                        android:text="Blow-Dry"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 5.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/art1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/blow1"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/hairartraycircle1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_circle" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toEndOf="@id/hairartraycircle1"
+                                        android:text="Hair Art"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 10.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/cut1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/art1"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/cutdraycircle1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_circle" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toEndOf="@id/cutdraycircle1"
+                                        android:text="Hair cut"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 6.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/shaving1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/cut1"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/shavingdraycircle1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_circle" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toEndOf="@id/shavingdraycircle1"
+                                        android:text="Hair Shaving"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 6.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/lonehair1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/shaving1"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/lonehairdraycircle1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_circle" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toStartOf="@id/lonepay1"
+                                        android:layout_toEndOf="@id/lonehairdraycircle1"
+                                        android:maxLines="1"
+                                        android:text="Karatine fornt of long hair"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:id="@+id/lonepay1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 6.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/shorhair1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/lonehair1"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/shortraycircle1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_radio_on_button" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toStartOf="@id/shortpay1"
+                                        android:layout_toEndOf="@id/shortraycircle1"
+                                        android:maxLines="1"
+                                        android:text="Karatine fornt of short hair"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/light_yellow" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:id="@+id/shortpay1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 6.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/light_yellow" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/hair"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/hairColor"
+                        android:layout_marginStart="@dimen/dp_14"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:layout_marginEnd="@dimen/dp_14"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        android:background="@drawable/back_ring">
+
+                        <TextView
+                            android:id="@+id/texthair"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="@dimen/dp_10"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_marginBottom="@dimen/dp_10"
+                            android:text="Hair"
+                            android:textAllCaps="true"
+                            android:textColor="@color/light_yellow"
+                            android:textSize="@dimen/sp_16" />
+
+                        <ImageView
+                            android:id="@+id/hairArrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_marginEnd="@dimen/dp_10"
+                            android:src="@drawable/light_yellow_right_arrow"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/HairArrowDown"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_marginEnd="@dimen/dp_10"
+                            android:src="@drawable/ic_down_arrow"
+                            android:visibility="gone" />
+
+                        <RelativeLayout
+                            android:id="@+id/innerHair"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/texthair"
+                            android:visibility="gone">
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/blow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/blowdraycircle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_circle" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toEndOf="@id/blowdraycircle"
+                                        android:text="Blow-Dry"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 5.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/art"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/blow"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/hairartraycircle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_circle" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toEndOf="@id/hairartraycircle"
+                                        android:text="Hair Art"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 10.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/cut"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/art"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/cutdraycircle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_circle" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toEndOf="@id/cutdraycircle"
+                                        android:text="Hair cut"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 6.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/shaving"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/cut"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/shavingdraycircle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_circle" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toEndOf="@id/shavingdraycircle"
+                                        android:text="Hair Shaving"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 6.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/lonehair"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/shaving"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/lonehairdraycircle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_circle" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toStartOf="@id/lonepay"
+                                        android:layout_toEndOf="@id/lonehairdraycircle"
+                                        android:maxLines="1"
+                                        android:text="Karatine fornt of long hair"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:id="@+id/lonepay"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 6.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/shorhair"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/lonehair"
+                                android:layout_margin="@dimen/dp_10">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp">
+
+                                    <ImageView
+                                        android:id="@+id/shortraycircle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:src="@drawable/ic_radio_on_button" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_toStartOf="@id/shortpay"
+                                        android:layout_toEndOf="@id/shortraycircle"
+                                        android:maxLines="1"
+                                        android:text="Karatine fornt of short hair"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/light_yellow" />
+
+                                    <TextView
+                                        android:textSize="@dimen/dp_12"
+                                        android:id="@+id/shortpay"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="@dimen/dp_10"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:text="KWD 6.00"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/light_yellow" />
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                    <Button
+                        android:id="@+id/continuemove"
+                        android:layout_below="@id/hair"
+                        android:layout_marginBottom="32dp"
+                        android:layout_marginTop="@dimen/dp_20"
+                        android:layout_marginStart="@dimen/dp_32"
+                        android:layout_marginEnd="@dimen/dp_32"
+                        android:text="Continue"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:background="@drawable/button_background"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>

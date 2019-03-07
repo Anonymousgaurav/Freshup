@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_marginBottom="@dimen/dp_10"
+    android:layout_marginTop="@dimen/dp_8"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/Imgback"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/hair_back"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/centerImg"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="80dp"
+        android:src="@drawable/hair_cutting"/>
+
+        <TextView
+            android:id="@+id/serviceName"
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="HAIR CUTTING"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "399450973338",
+    "firebase_url": "https://freshup-4a7c6.firebaseio.com",
+    "project_id": "freshup-4a7c6",
+    "storage_bucket": "freshup-4a7c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399450973338:android:b7b0b2b3df2b9566",
+        "android_client_info": {
+          "package_name": "com.omninos.freshup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399450973338-bsjpi5ee1bovcuh0am62mk5745fdhh23.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.omninos.freshup",
+            "certificate_hash": "1f3138cbe862b55a99223831f8b47a40f78c1154"
+          }
+        },
+        {
+          "client_id": "399450973338-b82g3t97uu1h5b0ss6e59r09qp01se92.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCa8fE7OWu7xg5zBZZl5GQBVkAYwlNdVpc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399450973338-b82g3t97uu1h5b0ss6e59r09qp01se92.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

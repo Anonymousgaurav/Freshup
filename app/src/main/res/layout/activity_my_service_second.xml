@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.MyServiceSecond">
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="160dp">
+
+                <ImageView
+                    android:id="@+id/backImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/service_single_back" />
+            </RelativeLayout>
+
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:src="@drawable/ic_left_arrow" />
+
+            <ImageView
+                android:id="@+id/product_item"
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_100"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_12"
+                android:src="@drawable/hair_cutting" />
+
+            <TextView
+                android:id="@+id/item_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/product_item"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="Hair Cutting"
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/firstCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_text"
+                android:layout_marginStart="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginEnd="@dimen/dp_12"
+                android:layout_marginBottom="@dimen/dp_10"
+                app:cardCornerRadius="@dimen/dp_10">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <HorizontalScrollView
+                        android:id="@+id/head"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_10">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center">
+
+                            <TextView
+                                android:id="@+id/serviceTitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/dp_6"
+                                android:text="Blow-Dry"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/sp_14" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/DayCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/head"
+                        android:layout_marginStart="@dimen/dp_12"
+                        android:layout_marginTop="@dimen/dp_6"
+                        android:layout_marginEnd="@dimen/dp_12"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        app:cardCornerRadius="@dimen/dp_10">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/dataDay"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginBottom="@dimen/dp_10"
+                                android:text="Select the Date"
+                                android:textAllCaps="true"
+                                android:textColor="@color/light_yellow"
+                                android:textSize="@dimen/sp_16" />
+
+                            <noman.weekcalendar.WeekCalendar
+                                android:id="@+id/weekCalendar"
+                                android:layout_width="match_parent"
+                                android:layout_height="65dp"
+                                android:layout_below="@id/dataDay"
+                                app:daysBackgroundColor="@color/white"
+                                app:daysTextColor="@color/black"
+                                app:todaysDateBgColor="@color/light_yellow"
+                                app:weekBackgroundColor="@color/white"
+                                app:weekTextColor="@color/light_yellow" />
+
+                            <android.support.v7.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/weekCalendar"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="@dimen/dp_6"
+                                android:layout_marginBottom="@dimen/dp_10"
+                                android:visibility="visible">
+
+                                <TextView
+                                    android:id="@+id/datedayData"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/dp_6"
+                                    android:text="Monday December 10,2018"
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/sp_16" />
+
+                            </android.support.v7.widget.CardView>
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/sign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/DayCard"
+                        android:layout_marginStart="@dimen/dp_14"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        android:text="Pick a time slot"
+                        android:textAllCaps="true"
+                        android:textColor="@color/light_yellow"
+                        android:textSize="@dimen/sp_16" />
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/firstCard1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/sign"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:visibility="gone">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/ServiceProviderName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="@dimen/dp_6"
+                                android:layout_marginBottom="@dimen/dp_10"
+                                android:text="Hushan"
+                                android:textAllCaps="true"
+                                android:textColor="@color/light_yellow"
+                                android:textSize="@dimen/sp_16" />
+
+                            <View
+                                android:id="@+id/singleView"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_below="@id/ServiceProviderName"
+                                android:background="#d3d3d3" />
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/firstRecycler"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/singleView"
+                                android:layout_marginTop="@dimen/dp_6"
+                                android:layout_marginBottom="@dimen/dp_6"></android.support.v7.widget.RecyclerView>
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/lastCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/firstCard1"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_14"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        android:visibility="gone">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/ServiceProviderName1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="@dimen/dp_6"
+                                android:layout_marginBottom="@dimen/dp_10"
+                                android:text="Arfid"
+                                android:textAllCaps="true"
+                                android:textColor="@color/light_yellow"
+                                android:textSize="@dimen/sp_16" />
+
+                            <View
+                                android:id="@+id/singleView1"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_below="@id/ServiceProviderName1"
+                                android:background="#d3d3d3" />
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/secondRecycler"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/singleView1"
+                                android:layout_marginTop="@dimen/dp_6"
+                                android:layout_marginBottom="@dimen/dp_6"></android.support.v7.widget.RecyclerView>
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+
+
+                    <RelativeLayout
+                        android:id="@+id/mainData"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/sign">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/babardetailList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </android.support.v7.widget.RecyclerView>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="Shop Close"
+                            android:textSize="@dimen/dp_30"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:id="@+id/closeShop"
+                            android:visibility="gone"/>
+                    </RelativeLayout>
+
+                    <Button
+                        android:id="@+id/moveToPayment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainData"
+                        android:layout_marginStart="@dimen/dp_32"
+                        android:layout_marginTop="@dimen/dp_20"
+                        android:layout_marginEnd="@dimen/dp_32"
+                        android:layout_marginBottom="32dp"
+                        android:background="@drawable/button_background"
+                        android:text="Next"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>

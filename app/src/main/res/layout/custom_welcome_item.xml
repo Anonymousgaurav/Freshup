@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/first"
+        android:layout_marginTop="-130dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/first"
+        android:scaleType="fitXY"/>
+    <ImageView
+        android:id="@+id/inner"
+        android:background="@drawable/welcome_back_items"
+        android:layout_below="@id/first"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-80dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:src="@drawable/inner"/>
+    <TextView
+        android:id="@+id/name"
+        android:layout_below="@id/inner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/light_yellow"
+        android:text="Lorem lpsum"
+        android:textSize="@dimen/sp_18"
+        android:layout_marginTop="@dimen/dp_10"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/dp_20"/>
+    <TextView
+        android:layout_below="@id/name"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="wrap_content"
+        android:textColor="@color/light_yellow"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:layout_height="wrap_content"
+        android:text="Lorem lpsum is simply dummy text. Lorem lpsum is simply dummy text. Lorem lpsum is simply dummy text."/>
+</RelativeLayout>

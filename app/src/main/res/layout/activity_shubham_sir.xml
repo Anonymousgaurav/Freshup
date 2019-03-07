@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:weightSum="3"
+    android:layout_height="match_parent"
+    tools:context=".Activities.ShubhamSir">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="@dimen/dp_16"
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Santanu Gain(Pt)"
+                android:textColor="#000"
+                android:textStyle="bold"/>
+
+            <RatingBar
+                android:layout_marginStart="-35dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX=".55"
+                android:scaleY=".55"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:paddingEnd="@dimen/dp_20"
+                android:paddingStart="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_20"
+                android:background="@drawable/button_background"
+                android:text="Rating 4.5"
+                android:textAllCaps="false"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            app:civ_border_overlay="true"
+            android:src="@drawable/ic_man_user"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="1dp"
+            android:layout_width="@dimen/dp_150"
+            android:layout_marginEnd="-20dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_height="@dimen/dp_150" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="38dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Experience"/>
+        <android.support.v7.widget.CardView
+            app:cardElevation="@dimen/dp_2"
+            app:cardCornerRadius="@dimen/dp_20"
+            app:cardUseCompatPadding="true"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_width="match_parent"
+            android:layout_height="65dp">
+            <EditText
+                android:textSize="@dimen/dp_16"
+                android:padding="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint="10 years"
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_20"/>
+        </android.support.v7.widget.CardView>
+
+
+        <TextView
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="38dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Speciality"/>
+        <android.support.v7.widget.CardView
+            app:cardElevation="2dp"
+            app:cardCornerRadius="@dimen/dp_20"
+            app:cardUseCompatPadding="true"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_width="match_parent"
+            android:layout_height="65dp">
+            <EditText
+                android:padding="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint="Physiotherapist"
+                android:textSize="@dimen/dp_16"
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_20"/>
+        </android.support.v7.widget.CardView>
+
+
+        <TextView
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="38dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About Us"/>
+        <android.support.v7.widget.CardView
+            app:cardCornerRadius="@dimen/dp_20"
+            app:cardUseCompatPadding="true"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_120">
+            <EditText
+                android:gravity="start"
+                android:textSize="@dimen/dp_12"
+                android:paddingTop="@dimen/dp_6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint="Contrary to populate belief, Lorem lpsum is not simply random text. It has roots in a piece of classical latin literature from 45BC, making it over 2000 years old."
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_20"/>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</LinearLayout>
