@@ -1,5 +1,6 @@
 package com.omninos.freshup.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class SubSubServiceAdapter extends RecyclerView.Adapter<SubSubServiceAdapter.MyViewHolder> {
 
-    Context context;
+    Activity context;
     List<GetServicesDataModel.SubSubService> list;
     ChooseSubsubCategory chooseSubsubCategory;
     List<String> listdata = new ArrayList<>();
@@ -33,7 +34,7 @@ public class SubSubServiceAdapter extends RecyclerView.Adapter<SubSubServiceAdap
         public void Choose(int position);
     }
 
-    public SubSubServiceAdapter(Context context, List<GetServicesDataModel.SubSubService> list, ChooseSubsubCategory chooseSubsubCategory) {
+    public SubSubServiceAdapter(Activity context, List<GetServicesDataModel.SubSubService> list, ChooseSubsubCategory chooseSubsubCategory) {
         this.context = context;
         this.list = list;
         this.chooseSubsubCategory = chooseSubsubCategory;
@@ -49,7 +50,11 @@ public class SubSubServiceAdapter extends RecyclerView.Adapter<SubSubServiceAdap
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
         myViewHolder.subsubItemPrice.setText("€" + list.get(i).getPrice());
-        myViewHolder.subsubitemName.setText(list.get(i).getTitle());
+        if (App.getAppPreferences().getLanguage(context).equalsIgnoreCase("fr")){
+            myViewHolder.subsubitemName.setText(list.get(i).getFrenchTitle());
+        }else {
+            myViewHolder.subsubitemName.setText(list.get(i).getTitle());
+        }
         myViewHolder.subsubitemCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

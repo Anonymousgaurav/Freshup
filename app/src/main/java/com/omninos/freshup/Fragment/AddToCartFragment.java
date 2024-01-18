@@ -1,7 +1,11 @@
 package com.omninos.freshup.Fragment;
 
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.omninos.freshup.Activities.HomeActivity;
+import com.omninos.freshup.Activities.LoginActivity;
 import com.omninos.freshup.Activities.PromoActivity;
 import com.omninos.freshup.Adapters.AddTocartAdapter;
 import com.omninos.freshup.ModelClasses.AddToCartModel;
@@ -23,9 +28,11 @@ import com.omninos.freshup.Retrofit.Api;
 import com.omninos.freshup.Retrofit.ApiClient;
 import com.omninos.freshup.Utils.App;
 import com.omninos.freshup.Utils.CommonUtils;
+import com.omninos.freshup.util.LocaleHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,7 +56,10 @@ public class AddToCartFragment extends Fragment implements View.OnClickListener 
     List<String> SaveIds = new ArrayList<>();
     StringBuilder productIds;
     private String StrProductId;
+    private TextView cartText, emptyCard, totalText;
 
+    Context context;
+    Resources resources;
 
     public AddToCartFragment() {
         // Required empty public constructor
@@ -63,9 +73,23 @@ public class AddToCartFragment extends Fragment implements View.OnClickListener 
         View view = inflater.inflate(R.layout.fragment_add_to_cart, container, false);
 
         activity = (HomeActivity) getActivity();
+
+        context = LocaleHelper.setLocale(activity, App.getAppPreferences().getLanguage(activity));
+        resources = context.getResources();
+
         initView(view);
+        changelanguage();
         SetUps(view);
         return view;
+    }
+
+    private void changelanguage() {
+        cartText.setText(resources.getString(R.string.cart));
+        emptyCart.setText(resources.getString(R.string.empty_cart));
+        totalText.setText(resources.getString(R.string.total_price));
+        buyItems.setText(resources.getString(R.string.buy));
+
+
     }
 
     private void initView(View view) {
@@ -73,6 +97,9 @@ public class AddToCartFragment extends Fragment implements View.OnClickListener 
         buyItems = view.findViewById(R.id.buyItems);
         totalPrice = view.findViewById(R.id.totalPrice);
         emptyCart = view.findViewById(R.id.emptyCard);
+
+        cartText = view.findViewById(R.id.cartText);
+        totalText = view.findViewById(R.id.totalText);
 
     }
 
@@ -145,6 +172,11 @@ public class AddToCartFragment extends Fragment implements View.OnClickListener 
                                     addTocartAdapter.notifyDataSetChanged();
 
                                 }
+
+                                @Override
+                                public void Delete(int position) {
+                                    Bind(details.get(position).getId());
+                                }
                             });
                             addTocartAdapter.notifyDataSetChanged();
                             add_to_card.setAdapter(addTocartAdapter);
@@ -153,7 +185,8 @@ public class AddToCartFragment extends Fragment implements View.OnClickListener 
                         } else {
                             add_to_card.setVisibility(View.GONE);
                             emptyCart.setVisibility(View.VISIBLE);
-                            Toast.makeText(activity, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            totalPrice.setText("€0");
+//                            Toast.makeText(activity, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
@@ -164,6 +197,61 @@ public class AddToCartFragment extends Fragment implements View.OnClickListener 
                 @Override
                 public void onFailure(Call<GetAddToCartListModel> call, Throwable t) {
                     Toast.makeText(activity, t.toString(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } else {
+            Toast.makeText(activity, "Network Issue", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void Bind(final String id) {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+//                                //Yes button clicked  l
+//                                listModels.remove(getAdapterPosition());
+//                                notifyItemRemoved(getAdapterPosition());
+//                                Toast.makeText(context, id + "", Toast.LENGTH_SHORT).show();
+                        DeleteData(id);
+                        dialog.dismiss();
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        dialog.cancel();
+                        break;
+                }
+            }
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
+
+
+    }
+
+    private void DeleteData(String id) {
+        if (CommonUtils.isNetworkConnected(activity)) {
+
+
+            Api api = ApiClient.getApiClient().create(Api.class);
+            api.DeleteItems(id).enqueue(new Callback<Map>() {
+                @Override
+                public void onResponse(Call<Map> call, Response<Map> response) {
+//                        CommonUtils.dismissProgress();
+                    if (response.body() != null) {
+                        getCartdataFromServer();
+                    } else {
+                        getCartdataFromServer();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Map> call, Throwable t) {
+//                        CommonUtils.dismissProgress();
                 }
             });
 
@@ -187,6 +275,7 @@ public class AddToCartFragment extends Fragment implements View.OnClickListener 
                         if (response.body().getSuccess().equalsIgnoreCase("1")) {
                             getCartdataFromServer();
                         } else {
+                            getCartdataFromServer();
                             Toast.makeText(activity, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     } else {

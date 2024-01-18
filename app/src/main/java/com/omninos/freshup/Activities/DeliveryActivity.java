@@ -2,9 +2,11 @@ package com.omninos.freshup.Activities;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -21,12 +23,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.hbb20.CountryCodePicker;
 import com.omninos.freshup.R;
+import com.omninos.freshup.Utils.App;
+import com.omninos.freshup.util.LocaleHelper;
 
 import java.io.IOException;
 import java.util.List;
@@ -41,74 +46,96 @@ public class DeliveryActivity extends AppCompatActivity implements View.OnClickL
     private Button proceed;
     private ImageView back;
 
+    private TextView item_text, textCountry, textState, textCity, textAddress, textZip;
+
 
     private LocationManager locationManager;
     private GoogleApiClient client;
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(activity, PromoActivity.class));
-        finishAffinity();
-    }
+
+    Context context;
+    Resources resources;
+
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        startActivity(new Intent(activity, PromoActivity.class));
+//        finishAffinity();
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery);
         activity = DeliveryActivity.this;
-        getPermissions();
+//        getPermissions();
+
+        context = LocaleHelper.setLocale(DeliveryActivity.this, App.getAppPreferences().getLanguage(DeliveryActivity.this));
+        resources = context.getResources();
+
         initView();
+        ChangeLanguage();
         SetUps();
     }
 
-    private void getPermissions() {
-        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION + Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 100);
-        } else {
-            GetLocation();
-            Toast.makeText(activity, "Granted", Toast.LENGTH_SHORT).show();
-        }
+    private void ChangeLanguage() {
+        item_text.setText(resources.getString(R.string.delivery_address));
+        textCountry.setText(resources.getString(R.string.country));
+        textState.setText(resources.getString(R.string.state));
+        textCity.setText(resources.getString(R.string.city));
+        textAddress.setText(resources.getString(R.string.address));
+        textZip.setText(resources.getString(R.string.zip_code));
+        proceed.setText(resources.getString(R.string.proceed));
+
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case 100:
-                boolean loaction1 = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                boolean loaction2 = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+//    private void getPermissions() {
+//        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION + Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+//        } else {
+//            GetLocation();
+//            Toast.makeText(activity, "Granted", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
-                if (grantResults.length > 0 && loaction1 && loaction2) {
-
-                    GetLocation();
-                    Toast.makeText(activity, "Permission Granted", Toast.LENGTH_SHORT).show();
-
-                } else if (Build.VERSION.SDK_INT > 23 && !shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION + Manifest.permission.ACCESS_FINE_LOCATION)) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                    builder.setTitle("Permissions");
-                    builder.setMessage("Permissions are requeired");
-                    builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(activity.getApplicationContext(), "Go to the setting for granting permissions", Toast.LENGTH_SHORT).show();
-                            boolean sentToSettings = true;
-                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                            Uri uri = Uri.fromParts("package", activity.getPackageName(), null);
-                            intent.setData(uri);
-                            startActivity(intent);
-                        }
-                    })
-                            .create()
-                            .show();
-
-                } else {
-                    Toast.makeText(activity, "Permission Denied", Toast.LENGTH_SHORT).show();
-                    ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 100);
-                }
-                break;
-        }
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        switch (requestCode) {
+//            case 100:
+//                boolean loaction1 = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+//                boolean loaction2 = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+//
+//                if (grantResults.length > 0 && loaction1 && loaction2) {
+//
+//                    GetLocation();
+//                    Toast.makeText(activity, "Permission Granted", Toast.LENGTH_SHORT).show();
+//
+//                } else if (Build.VERSION.SDK_INT > 23 && !shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION + Manifest.permission.ACCESS_FINE_LOCATION)) {
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+//                    builder.setTitle("Permissions");
+//                    builder.setMessage("Permissions are requeired");
+//                    builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            Toast.makeText(activity.getApplicationContext(), "Go to the setting for granting permissions", Toast.LENGTH_SHORT).show();
+//                            boolean sentToSettings = true;
+//                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+//                            Uri uri = Uri.fromParts("package", activity.getPackageName(), null);
+//                            intent.setData(uri);
+//                            startActivity(intent);
+//                        }
+//                    })
+//                            .create()
+//                            .show();
+//
+//                } else {
+//                    Toast.makeText(activity, "Permission Denied", Toast.LENGTH_SHORT).show();
+//                    ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+//                }
+//                break;
+//        }
+//    }
 
     private void initView() {
         countryCodePicker = findViewById(R.id.ccp);
@@ -119,6 +146,14 @@ public class DeliveryActivity extends AppCompatActivity implements View.OnClickL
         proceed = findViewById(R.id.proceed);
         country = countryCodePicker.getSelectedCountryName();
         back = findViewById(R.id.back);
+
+
+        item_text = findViewById(R.id.item_text);
+        textCountry = findViewById(R.id.textCountry);
+        textState = findViewById(R.id.textState);
+        textCity = findViewById(R.id.textCity);
+        textAddress = findViewById(R.id.textAddress);
+        textZip = findViewById(R.id.textZip);
 
     }
 
@@ -182,100 +217,100 @@ public class DeliveryActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
-    private void GetLocation() {
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-
-
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                return;
-            }
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, new LocationListener() {
-                @Override
-                public void onLocationChanged(Location location) {
-                    Geocoder geocoder;
-                    List<Address> addresses;
-                    geocoder = new Geocoder(DeliveryActivity.this, Locale.getDefault());
-
-                    try {
-                        addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-
-                        String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                        String city = addresses.get(0).getLocality();
-                        String state = addresses.get(0).getAdminArea();
-                        String country = addresses.get(0).getCountryName();
-                        String postalCode = addresses.get(0).getPostalCode();
-                        String knownName = addresses.get(0).getFeatureName();
-                        et_zipCode.setText(postalCode);
-                        et_address.setText(address);
-                        et_city.setText(city);
-                        et_state.setText(state);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onStatusChanged(String provider, int status, Bundle extras) {
-
-                }
-
-                @Override
-                public void onProviderEnabled(String provider) {
-
-                }
-
-                @Override
-                public void onProviderDisabled(String provider) {
-
-                }
-            });
-        } else if (locationManager.isProviderEnabled(locationManager.GPS_PROVIDER)) {
-            locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 1000, 0, new LocationListener() {
-                @Override
-                public void onLocationChanged(Location location) {
-
-                    Geocoder geocoder;
-                    List<Address> addresses;
-                    geocoder = new Geocoder(DeliveryActivity.this, Locale.getDefault());
-
-                    try {
-                        addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-
-                        String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                        String city = addresses.get(0).getLocality();
-                        String state = addresses.get(0).getAdminArea();
-                        String country = addresses.get(0).getCountryName();
-                        String postalCode = addresses.get(0).getPostalCode();
-                        String knownName = addresses.get(0).getFeatureName();
-
-                        et_zipCode.setText(postalCode);
-                        et_address.setText(address);
-                        et_city.setText(city);
-                        et_state.setText(state);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onStatusChanged(String provider, int status, Bundle extras) {
-
-                }
-
-                @Override
-                public void onProviderEnabled(String provider) {
-
-                }
-
-                @Override
-                public void onProviderDisabled(String provider) {
-
-                }
-            });
-        }
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-    }
+//    private void GetLocation() {
+//        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+//
+//        if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+//
+//
+//            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//
+//                return;
+//            }
+//            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, new LocationListener() {
+//                @Override
+//                public void onLocationChanged(Location location) {
+//                    Geocoder geocoder;
+//                    List<Address> addresses;
+//                    geocoder = new Geocoder(DeliveryActivity.this, Locale.getDefault());
+//
+//                    try {
+//                        addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+//
+//                        String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+//                        String city = addresses.get(0).getLocality();
+//                        String state = addresses.get(0).getAdminArea();
+//                        String country = addresses.get(0).getCountryName();
+//                        String postalCode = addresses.get(0).getPostalCode();
+//                        String knownName = addresses.get(0).getFeatureName();
+//                        et_zipCode.setText(postalCode);
+//                        et_address.setText(address);
+//                        et_city.setText(city);
+//                        et_state.setText(state);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//                @Override
+//                public void onStatusChanged(String provider, int status, Bundle extras) {
+//
+//                }
+//
+//                @Override
+//                public void onProviderEnabled(String provider) {
+//
+//                }
+//
+//                @Override
+//                public void onProviderDisabled(String provider) {
+//
+//                }
+//            });
+//        } else if (locationManager.isProviderEnabled(locationManager.GPS_PROVIDER)) {
+//            locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 1000, 0, new LocationListener() {
+//                @Override
+//                public void onLocationChanged(Location location) {
+//
+//                    Geocoder geocoder;
+//                    List<Address> addresses;
+//                    geocoder = new Geocoder(DeliveryActivity.this, Locale.getDefault());
+//
+//                    try {
+//                        addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+//
+//                        String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+//                        String city = addresses.get(0).getLocality();
+//                        String state = addresses.get(0).getAdminArea();
+//                        String country = addresses.get(0).getCountryName();
+//                        String postalCode = addresses.get(0).getPostalCode();
+//                        String knownName = addresses.get(0).getFeatureName();
+//
+//                        et_zipCode.setText(postalCode);
+//                        et_address.setText(address);
+//                        et_city.setText(city);
+//                        et_state.setText(state);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//                @Override
+//                public void onStatusChanged(String provider, int status, Bundle extras) {
+//
+//                }
+//
+//                @Override
+//                public void onProviderEnabled(String provider) {
+//
+//                }
+//
+//                @Override
+//                public void onProviderDisabled(String provider) {
+//
+//                }
+//            });
+//        }
+//        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+//    }
 }

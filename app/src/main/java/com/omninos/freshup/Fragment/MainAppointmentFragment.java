@@ -2,13 +2,16 @@ package com.omninos.freshup.Fragment;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +19,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.omninos.freshup.Activities.HomeActivity;
+import com.omninos.freshup.Activities.LoginActivity;
 import com.omninos.freshup.Adapters.AppointmentAdapter;
 import com.omninos.freshup.Adapters.AppointmentPagerAdapter;
 import com.omninos.freshup.ModelClasses.AppointmentModel;
 import com.omninos.freshup.R;
+import com.omninos.freshup.Utils.App;
+import com.omninos.freshup.util.LocaleHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +42,11 @@ public class MainAppointmentFragment extends Fragment implements View.OnClickLis
     private ImageView back;
     private TabLayout tabLayout;
     List<AppointmentModel> list = new ArrayList<>();
+    private TextView item_text;
+
+
+    Context context;
+    Resources resources;
 
 
     public MainAppointmentFragment() {
@@ -47,13 +58,16 @@ public class MainAppointmentFragment extends Fragment implements View.OnClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_main_appointment, container, false);
+        View view = inflater.inflate(R.layout.fragment_main_appointment, container, false);
 
         activity = (HomeActivity) getActivity();
+        context = LocaleHelper.setLocale(activity, App.getAppPreferences().getLanguage(activity));
+        resources = context.getResources();
+
 
         initView(view);
         SetUps(view);
-        RecyclerViewSetUps();
+        RecyclerViewSetUps(view);
         return view;
 
     }
@@ -61,14 +75,25 @@ public class MainAppointmentFragment extends Fragment implements View.OnClickLis
     private void initView(View view) {
         appointmentList = view.findViewById(R.id.appointmentlist);
         noAppointment = view.findViewById(R.id.noAppointment);
-        back=view.findViewById(R.id.back);
-        tabLayout=view.findViewById(R.id.tabLayout);
+        back = view.findViewById(R.id.back);
+        tabLayout = view.findViewById(R.id.tabLayout);
+        item_text = view.findViewById(R.id.item_text);
 
-        tabLayout.addTab(tabLayout.newTab().setText("All"));
-        tabLayout.addTab(tabLayout.newTab().setText("Upcoming"));
-        tabLayout.addTab(tabLayout.newTab().setText("Past"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        item_text.setText(resources.getString(R.string.appointments));
+
+        if (App.getAppPreferences().getLanguage(activity).equalsIgnoreCase("fr")) {
+            tabLayout.addTab(tabLayout.newTab().setText("Tout"));
+            tabLayout.addTab(tabLayout.newTab().setText("Prochain"));
+            tabLayout.addTab(tabLayout.newTab().setText("Passé"));
+            tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        } else {
+            tabLayout.addTab(tabLayout.newTab().setText("All"));
+            tabLayout.addTab(tabLayout.newTab().setText("Upcoming"));
+            tabLayout.addTab(tabLayout.newTab().setText("Past"));
+            tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        }
     }
+
     private void SetUps(View view) {
         back.setOnClickListener(this);
 
@@ -76,17 +101,20 @@ public class MainAppointmentFragment extends Fragment implements View.OnClickLis
 
 
     }
-    private void setUpFragment(View view) {
-        final ViewPager viewPager=view.findViewById(R.id.viewPage);
 
-        AppointmentPagerAdapter pagerAdapter=new AppointmentPagerAdapter(getChildFragmentManager(),tabLayout.getTabCount());
+    private void setUpFragment(View view) {
+        final ViewPager viewPager = view.findViewById(R.id.viewPage);
+
+        AppointmentPagerAdapter pagerAdapter = new AppointmentPagerAdapter(getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                Log.d("onTabSelected: ", String.valueOf(tab.getPosition()));
             }
 
             @Override
@@ -102,7 +130,7 @@ public class MainAppointmentFragment extends Fragment implements View.OnClickLis
 
     }
 
-    private void RecyclerViewSetUps() {
+    private void RecyclerViewSetUps(View view) {
 
         //toolbar=getSupportActionBar();
 

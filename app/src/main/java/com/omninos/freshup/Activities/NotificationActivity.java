@@ -1,6 +1,8 @@
 package com.omninos.freshup.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,12 +10,19 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.omninos.freshup.R;
+import com.omninos.freshup.Utils.App;
+import com.omninos.freshup.util.LocaleHelper;
 
 public class NotificationActivity extends AppCompatActivity implements View.OnClickListener {
 
     private String barbarName, price, timeSlote, AppointmentDate, services, subtitle, Message, bookingServiceId;
     private TextView barberName, prices, timeData, dateData, servicesData, message;
     private Button Pay;
+
+    private TextView textService,textBarberName,textAppointment,textSlot,textPrice;
+
+    Context context;
+    Resources resources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +36,23 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         services = getIntent().getStringExtra("services");
         subtitle = getIntent().getStringExtra("subtitle");
         bookingServiceId = getIntent().getStringExtra("bookingServiceId");
+
+        context = LocaleHelper.setLocale(NotificationActivity.this, App.getAppPreferences().getLanguage(NotificationActivity.this));
+        resources = context.getResources();
+
+
+
         initView();
+        Changelanguage();
         SetUps();
+    }
+
+    private void Changelanguage() {
+        textService.setText(resources.getString(R.string.services));
+        textBarberName.setText(resources.getString(R.string.barber_name));
+        textAppointment.setText(resources.getString(R.string.appointment_date));
+        textSlot.setText(resources.getString(R.string.time_slot));
+        textPrice.setText(resources.getString(R.string.price));
     }
 
     private void initView() {
@@ -39,6 +63,14 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         servicesData = findViewById(R.id.services);
         Pay = findViewById(R.id.Pay);
         message = findViewById(R.id.message);
+
+
+        textService=findViewById(R.id.textService);
+        textBarberName=findViewById(R.id.textBarberName);
+        textAppointment=findViewById(R.id.textAppointment);
+        textSlot=findViewById(R.id.textSlot);
+        textPrice=findViewById(R.id.textPrice);
+
     }
 
     private void SetUps() {

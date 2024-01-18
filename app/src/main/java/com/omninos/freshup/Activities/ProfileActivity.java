@@ -8,8 +8,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -18,6 +21,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,14 +42,17 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
+import com.omninos.freshup.BuildConfig;
 import com.omninos.freshup.ModelClasses.GetProfilePojo;
 import com.omninos.freshup.R;
 import com.omninos.freshup.Retrofit.Api;
 import com.omninos.freshup.Retrofit.ApiClient;
 import com.omninos.freshup.Utils.App;
 import com.omninos.freshup.Utils.CommonUtils;
+import com.omninos.freshup.Utils.ImageUtil;
 import com.omninos.freshup.util.Constants;
 import com.omninos.freshup.util.InstagramApp;
+import com.omninos.freshup.util.LocaleHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -70,12 +77,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private EditText et_name, et_mail, et_number;
     private RelativeLayout Logout;
     private int Editstatus = 0;
-    private TextView saveButton;
+    private TextView saveButton, title, nameText, emailText, numberText, logoutText;
     private CircleImageView userImg;
     private ProgressBar progress;
 
-    public static final int PICK_FROM_GALLERY = 100;
-    public static final int CAMERA_REQUEST = 200;
 
     private String imagepath, tempNumber, Updatename, UpdateNumber, UpdateUserId;
 
@@ -85,6 +90,18 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private InstagramApp mApp;
     private int status = 0;
 
+
+    private File photoFile;
+    private static final int GALLERY_REQUEST = 101;
+
+    private static final int CAMERA_REQUEST = 102;
+
+    private Uri uri;
+
+
+    Context context;
+    Resources resources;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +109,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
 
         activity = ProfileActivity.this;
+
+        context = LocaleHelper.setLocale(activity, App.getAppPreferences().getLanguage(activity));
+        resources = context.getResources();
 
 
         mApp = new InstagramApp(activity, Constants.CLIENT_ID,
@@ -101,9 +121,18 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(activity);
         initView();
+        ChangeLanguage();
         setUps();
         DisableEdit();
         getUserProfile();
+    }
+
+    private void ChangeLanguage() {
+        title.setText(resources.getString(R.string.profile));
+        nameText.setText(resources.getString(R.string.name));
+        emailText.setText(resources.getString(R.string.email));
+        numberText.setText(resources.getString(R.string.phone_number));
+        logoutText.setText(resources.getString(R.string.log_out));
     }
 
 
@@ -176,6 +205,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         userImg = findViewById(R.id.userImg);
         progress = findViewById(R.id.progress);
 
+        title = findViewById(R.id.title);
+        nameText = findViewById(R.id.nameText);
+        emailText = findViewById(R.id.emailText);
+        numberText = findViewById(R.id.numberText);
+        logoutText = findViewById(R.id.logoutText);
     }
 
     @Override
@@ -278,76 +312,150 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-    private void galleryIntent() {
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, PICK_FROM_GALLERY);
-    }
+//    private void galleryIntent() {
+//        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+//        photoPickerIntent.setType("image/*");
+//        startActivityForResult(photoPickerIntent, PICK_FROM_GALLERY);
+//    }
+//
+//    private void cameraIntent() {
+//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
+//            startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+//        }
+//    }
+//
+//    @SuppressLint("LongLogTag")
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (resultCode == Activity.RESULT_OK)
+//            switch (requestCode) {
+//                case PICK_FROM_GALLERY:
+//                    Uri selectedImage = data.getData();
+//                    try {
+//                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), selectedImage);
+//                        userImg.setImageBitmap(bitmap);
+//
+//                        Log.d("onActivityResult: ", getRealPathFromUri(selectedImage));
+//                        imagepath = getRealPathFromUri(selectedImage);
+//                        App.getAppPreferences().saveUserImagePath(activity, imagepath);
+////                        CommonUtil.SaveImgPath(activity, p);
+//                    } catch (IOException e) {
+//                        Log.i("TAG", "Some exception " + e);
+//                    }
+//                    break;
+//
+//                case CAMERA_REQUEST:
+//                    Bundle extras = data.getExtras();
+//                    Bitmap imageBitmap = (Bitmap) extras.get("data");
+//                    userImg.setImageBitmap(imageBitmap);
+//                    // Log.d( "onActivityResult: FromData", String.valueOf(data.getData()));
+//                    Log.d("onActivityResult: FromMethod", String.valueOf(getImageUri(activity, imageBitmap)));
+//                    Uri captureImage = getImageUri(activity, imageBitmap);
+//                    imagepath = getRealPathFromUri(captureImage);
+//                    App.getAppPreferences().saveUserImagePath(activity, imagepath);
+////                    CommonUtil.SaveImgPath(activity, p);
+//                    Log.d("onActivityResult: Path", imagepath);
+//
+//            }
+//    }
+//
+//
+//    private Uri getImageUri(Context context, Bitmap bitmap) {
+//        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+//        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Title", null);
+//        return Uri.parse(path);
+//    }
+//
+//    private String getRealPathFromUri(Uri tempUri) {
+//        Cursor cursor = null;
+//        try {
+//            String[] proj = {MediaStore.Images.Media.DATA};
+//            cursor = activity.getContentResolver().query(tempUri, proj, null, null, null);
+//            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//            cursor.moveToFirst();
+//            return cursor.getString(column_index);
+//        } finally {
+//            if (cursor != null) {
+//                cursor.close();
+//            }
+//        }
+//    }
 
+    //choose from camera
     private void cameraIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+        Intent pictureIntent = new Intent(
+                MediaStore.ACTION_IMAGE_CAPTURE);
+        if (pictureIntent.resolveActivity(getPackageManager()) != null) {
+            //Create a file to store the image
+            photoFile = null;
+            photoFile = ImageUtil.getTemporaryCameraFile();
+            if (photoFile != null) {
+                Uri uri = FileProvider.getUriForFile(ProfileActivity.this, BuildConfig.APPLICATION_ID + ".provider", photoFile);
+                pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                startActivityForResult(pictureIntent,
+                        CAMERA_REQUEST);
+            }
         }
     }
 
-    @SuppressLint("LongLogTag")
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    //Choose from gallery
+    private void galleryIntent() {
+        //gallery intent
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        //intent.setType("profilePic/*");
+        startActivityForResult(intent, GALLERY_REQUEST);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK)
-            switch (requestCode) {
-                case PICK_FROM_GALLERY:
-                    Uri selectedImage = data.getData();
-                    try {
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), selectedImage);
-                        userImg.setImageBitmap(bitmap);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == GALLERY_REQUEST) {
+                onSelectFromGalleryResult(data);
+            } else if (requestCode == CAMERA_REQUEST) {
+                //set image path
+                imagepath = ImageUtil.compressImage(photoFile.getAbsolutePath());
+                App.getAppPreferences().saveUserImagePath(activity, ImageUtil.compressImage(photoFile.getAbsolutePath()));
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 8;
+                Bitmap mBitmapInsurance = BitmapFactory.decodeFile(photoFile.getAbsolutePath(), options);
+                //set image preview on imageView
+                Matrix matrix = new Matrix();
+                matrix.postRotate(90);
+                Bitmap rotated = Bitmap.createBitmap(mBitmapInsurance, 0, 0, mBitmapInsurance.getWidth(), mBitmapInsurance.getHeight(),
+                        matrix, true);
 
-                        Log.d("onActivityResult: ", getRealPathFromUri(selectedImage));
-                        imagepath = getRealPathFromUri(selectedImage);
-                        App.getAppPreferences().saveUserImagePath(activity, imagepath);
-//                        CommonUtil.SaveImgPath(activity, p);
-                    } catch (IOException e) {
-                        Log.i("TAG", "Some exception " + e);
-                    }
-                    break;
-
-                case CAMERA_REQUEST:
-                    Bundle extras = data.getExtras();
-                    Bitmap imageBitmap = (Bitmap) extras.get("data");
-                    userImg.setImageBitmap(imageBitmap);
-                    // Log.d( "onActivityResult: FromData", String.valueOf(data.getData()));
-                    Log.d("onActivityResult: FromMethod", String.valueOf(getImageUri(activity, imageBitmap)));
-                    Uri captureImage = getImageUri(activity, imageBitmap);
-                    imagepath = getRealPathFromUri(captureImage);
-                    App.getAppPreferences().saveUserImagePath(activity, imagepath);
-//                    CommonUtil.SaveImgPath(activity, p);
-                    Log.d("onActivityResult: Path", imagepath);
-
-            }
-    }
-
-
-    private Uri getImageUri(Context context, Bitmap bitmap) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Title", null);
-        return Uri.parse(path);
-    }
-
-    private String getRealPathFromUri(Uri tempUri) {
-        Cursor cursor = null;
-        try {
-            String[] proj = {MediaStore.Images.Media.DATA};
-            cursor = activity.getContentResolver().query(tempUri, proj, null, null, null);
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            return cursor.getString(column_index);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
+                if (Build.VERSION.SDK_INT > 25 && Build.VERSION.SDK_INT < 27) {
+                    // Do something for lollipop and above versions
+                    userImg.setImageBitmap(rotated);
+                } else {
+                    // do something for phones running an SDK before lollipop
+                    userImg.setImageBitmap(mBitmapInsurance);
+                }
             }
         }
     }
+
+    private void onSelectFromGalleryResult(Intent data) {
+        if (data != null) {
+            uri = data.getData();
+            if (uri != null) {
+                String[] projection = {MediaStore.Images.Media.DATA};
+                Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+                int column_index_data = cursor.getColumnIndex(projection[0]);
+                cursor.moveToFirst();
+                imagepath = cursor.getString(column_index_data);
+                App.getAppPreferences().saveUserImagePath(activity, imagepath);
+                //set image preview on Image View
+                Glide.with(activity).load("file://" + imagepath).into(userImg);
+            }
+
+        }
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -416,9 +524,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 final RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                 user_image = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
             } else {
-                File file = new File(App.getAppPreferences().getUserImagePath(activity));
-                final RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                user_image = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+//                File file = new File(App.getAppPreferences().getUserImagePath(activity));
+                final RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+                user_image = MultipartBody.Part.createFormData("image", "", requestFile);
             }
 
             if (CommonUtils.isNetworkConnected(activity)) {
@@ -440,6 +548,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                                 status = 0;
                                 saveButton.setVisibility(View.GONE);
                                 editButton.setVisibility(View.VISIBLE);
+                                getUserProfile();
+
                                 Toast.makeText(activity, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(activity, response.body().getMessage(), Toast.LENGTH_SHORT).show();

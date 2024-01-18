@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.omninos.freshup.ModelClasses.QueueModelClass;
 import com.omninos.freshup.ModelClasses.SingleUserQueueList;
 import com.omninos.freshup.R;
 
@@ -16,11 +17,11 @@ import java.util.List;
 public class SingleUserQueueAdapter extends RecyclerView.Adapter<SingleUserQueueAdapter.MyViewHolder> {
 
     Context context;
-    List<SingleUserQueueList> lists;
+    List<QueueModelClass.BookingDetail> lists;
     String size;
 
 
-    public SingleUserQueueAdapter(Context context, List<SingleUserQueueList> lists, String size) {
+    public SingleUserQueueAdapter(Context context, List<QueueModelClass.BookingDetail> lists, String size) {
         this.context = context;
         this.lists = lists;
         this.size=size;
@@ -36,8 +37,8 @@ public class SingleUserQueueAdapter extends RecyclerView.Adapter<SingleUserQueue
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         myViewHolder.sNo.setText(String.valueOf(i+1));
-        myViewHolder.firstUseName.setText(lists.get(i).getName());
-        myViewHolder.firstUserService.setText(lists.get(i).getServiceType());
+        myViewHolder.firstUseName.setText(lists.get(i).getUserName());
+        myViewHolder.firstUserService.setText(lists.get(i).getServiceTitle());
     }
 
     @Override

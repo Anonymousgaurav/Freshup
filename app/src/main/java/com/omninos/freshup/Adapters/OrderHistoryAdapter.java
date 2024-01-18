@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.omninos.freshup.ModelClasses.OrderHistoryModel;
 import com.omninos.freshup.R;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapter.MyViewHolder> {
@@ -39,7 +40,10 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         myViewHolder.productPrice.setText("€"+list.get(i).getDetails().get(i).getPrice());
         myViewHolder.quantity.setText(list.get(i).getDetails().get(i).getQuantity());
         myViewHolder.title.setText(list.get(i).getDetails().get(i).getTitle());
-        Glide.with(context).load(list.get(i).getDetails().get(i).getProductImage()).into(myViewHolder.productImage);
+        List<String> items = Arrays.asList(list.get(i).getDetails().get(i).getProductImage().split(","));
+
+
+        Glide.with(context).load(items.get(0)).into(myViewHolder.productImage);
     }
 
     @Override

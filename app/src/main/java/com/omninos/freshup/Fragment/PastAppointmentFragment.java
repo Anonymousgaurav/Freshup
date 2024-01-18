@@ -2,7 +2,9 @@ package com.omninos.freshup.Fragment;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.omninos.freshup.Activities.HomeActivity;
@@ -21,6 +24,8 @@ import com.omninos.freshup.Retrofit.Api;
 import com.omninos.freshup.Retrofit.ApiClient;
 import com.omninos.freshup.Utils.App;
 import com.omninos.freshup.Utils.CommonUtils;
+import com.omninos.freshup.util.LocaleHelper;
+import com.omninos.freshup.util.WrapContentLinearLayoutManager;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -42,11 +47,18 @@ public class PastAppointmentFragment extends Fragment {
     private RecyclerView appointmentList;
     private AppointmentAdapter adapter;
 
-    HomeActivity activity;
+    Context activity;
     String currentDate, currentTime;
     DateFormat dateFormat, timeFormat;
     List<AppointmentModel> list = new ArrayList<>();
+
+    private TextView noAppointment;
     List<AppointmentModel.Detail> detailList = new ArrayList<>();
+
+    Context context;
+    Resources resources;
+
+    private boolean doInOnAttach = true;
 
     public PastAppointmentFragment() {
         // Required empty public constructor
@@ -59,9 +71,14 @@ public class PastAppointmentFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_past_appointment, container, false);
 
-        activity = (HomeActivity) getActivity();
+        activity = getActivity();
+        context = LocaleHelper.setLocale(getActivity(), App.getAppPreferences().getLanguage(getActivity()));
+        resources = context.getResources();
+
         initView(view);
-        SetUpRecyclerView();
+        WrapContentLinearLayoutManager linearLayoutManager = new WrapContentLinearLayoutManager(activity);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        appointmentList.setLayoutManager(linearLayoutManager);
 
         return view;
     }
@@ -69,12 +86,14 @@ public class PastAppointmentFragment extends Fragment {
     private void initView(View view) {
 
         appointmentList = view.findViewById(R.id.appointmentlist);
+
+        noAppointment = view.findViewById(R.id.noAppointment);
+
+        noAppointment.setText(resources.getString(R.string.no_past_appointment));
+
     }
 
     private void SetUpRecyclerView() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        appointmentList.setLayoutManager(linearLayoutManager);
 
 
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -87,68 +106,113 @@ public class PastAppointmentFragment extends Fragment {
         if (list != null) {
             list.clear();
         }
-        if (CommonUtils.isNetworkConnected(activity)) {
+        if (detailList != null) {
+            detailList.clear();
+        }
+        if (CommonUtils.isNetworkConnected(getActivity())) {
 
             Api api = ApiClient.getApiClient().create(Api.class);
 
-            //  CommonUtils.showProgress(activity,"");
+//              CommonUtils.showProgress(getActivity(),"");
 
-            api.getAppointment(App.getAppPreferences().getUserId(activity)).enqueue(new Callback<AppointmentModel>() {
+            api.getAppointment(App.getAppPreferences().getUserId1(getActivity()), currentTime).enqueue(new Callback<AppointmentModel>() {
                 @Override
                 public void onResponse(Call<AppointmentModel> call, Response<AppointmentModel> response) {
-                    //  CommonUtils.dismissProgress();
+//                      CommonUtils.dismissProgress();
                     if (response.body() != null) {
                         if (response.body().getSuccess().equalsIgnoreCase("1")) {
 
                             int size = response.body().getDetails().size();
+//                            for (int i = 0; i < size; i++) {
+//                                AppointmentModel model = new AppointmentModel();
+//
+//                                AppointmentModel.Detail detail = new AppointmentModel.Detail();
+//                                try {
+//                                    Date appointMentDate = dateFormat.parse(response.body().getDetails().get(i).getApointmentDate());
+//                                    Date Current = dateFormat.parse(currentDate);
+//                                    if (Current.getTime() >= appointMentDate.getTime()) {
+//                                        if (Current.getTime() == appointMentDate.getTime()) {
+//                                            List<String> list1 = new ArrayList<String>(Arrays.asList(response.body().getDetails().get(i).getTimeslot().split(",")));
+//                                            Date appointMentTime = timeFormat.parse(list1.get(0));
+//                                            Date timeData = timeFormat.parse(currentTime);
+//                                            if (timeData.getTime() > appointMentTime.getTime()) {
+//                                                Log.d("TimeData : ", "IF");
+////                                                myViewHolder.cancel.setVisibility(View.GONE);
+//                                                detail.setId(response.body().getDetails().get(i).getId());
+//                                                detail.setUserStatus(response.body().getDetails().get(i).getUserStatus());
+//                                                detail.setApointmentDate(response.body().getDetails().get(i).getApointmentDate());
+//                                                detail.setUserId(response.body().getDetails().get(i).getUserId());
+//                                                detail.setSubSubServiceTitle(response.body().getDetails().get(i).getSubSubServiceTitle());
+//                                                detail.setTimeslot(response.body().getDetails().get(i).getTimeslot());
+//                                                detail.setBarberName(response.body().getDetails().get(i).getBarberName());
+//                                                detailList.add(detail);
+//                                                model.setDetails(detailList);
+//                                                list.add(model);
+//                                            } else {
+//                                                Log.d("TimeData : ", "Else");
+////                                                myViewHolder.cancel.setVisibility(View.VISIBLE);
+//
+//                                            }
+//                                        } else {
+//                                            detail.setId(response.body().getDetails().get(i).getId());
+//                                            detail.setApointmentDate(response.body().getDetails().get(i).getApointmentDate());
+//                                            detail.setUserId(response.body().getDetails().get(i).getUserId());
+//                                            detail.setUserStatus(response.body().getDetails().get(i).getUserStatus());
+//                                            detail.setSubSubServiceTitle(response.body().getDetails().get(i).getSubSubServiceTitle());
+//                                            detail.setTimeslot(response.body().getDetails().get(i).getTimeslot());
+//                                            detail.setBarberName(response.body().getDetails().get(i).getBarberName());
+//                                            detailList.add(detail);
+//                                            model.setDetails(detailList);
+//                                            list.add(model);
+//                                        }
+//
+//                                    } else {
+//                                        if (response.body().getDetails().get(i).getUserStatus().equalsIgnoreCase("1")) {
+//                                            detail.setId(response.body().getDetails().get(i).getId());
+//                                            detail.setUserStatus(response.body().getDetails().get(i).getUserStatus());
+//                                            detail.setApointmentDate(response.body().getDetails().get(i).getApointmentDate());
+//                                            detail.setUserId(response.body().getDetails().get(i).getUserId());
+//                                            detail.setSubSubServiceTitle(response.body().getDetails().get(i).getSubSubServiceTitle());
+//                                            detail.setTimeslot(response.body().getDetails().get(i).getTimeslot());
+//                                            detail.setBarberName(response.body().getDetails().get(i).getBarberName());
+//                                            detailList.add(detail);
+//                                            model.setDetails(detailList);
+//                                            list.add(model);
+//                                        }
+//                                    }
+//                                } catch (ParseException e) {
+//                                    e.printStackTrace();
+//                                }
+
+//                            }
+
                             for (int i = 0; i < size; i++) {
                                 AppointmentModel model = new AppointmentModel();
-
                                 AppointmentModel.Detail detail = new AppointmentModel.Detail();
-                                try {
-                                    Date appointMentDate = dateFormat.parse(response.body().getDetails().get(i).getApointmentDate());
-                                    Date Current = dateFormat.parse(currentDate);
-                                    if (Current.getTime() >= appointMentDate.getTime()) {
-                                        if (Current.getTime() == appointMentDate.getTime()) {
-                                            List<String> list1 = new ArrayList<String>(Arrays.asList(response.body().getDetails().get(i).getTimeslot().split(",")));
-                                            Date appointMentTime = timeFormat.parse(list1.get(0));
-                                            Date timeData = timeFormat.parse(currentTime);
-                                            if (timeData.getTime() > appointMentTime.getTime()) {
-                                                Log.d("TimeData : ", "IF");
-//                                                myViewHolder.cancel.setVisibility(View.GONE);
-                                                detail.setApointmentDate(response.body().getDetails().get(i).getApointmentDate());
-                                                detail.setUserId(response.body().getDetails().get(i).getUserId());
-                                                detail.setSubSubServiceTitle(response.body().getDetails().get(i).getSubSubServiceTitle());
-                                                detail.setTimeslot(response.body().getDetails().get(i).getTimeslot());
-                                                detail.setBarberName(response.body().getDetails().get(i).getBarberName());
-                                                detailList.add(detail);
-                                                model.setDetails(detailList);
-                                                list.add(model);
-                                            } else {
-                                                Log.d("TimeData : ", "Else");
-//                                                myViewHolder.cancel.setVisibility(View.VISIBLE);
-                                            }
-                                        } else {
-                                            detail.setApointmentDate(response.body().getDetails().get(i).getApointmentDate());
-                                            detail.setUserId(response.body().getDetails().get(i).getUserId());
-                                            detail.setSubSubServiceTitle(response.body().getDetails().get(i).getSubSubServiceTitle());
-                                            detail.setTimeslot(response.body().getDetails().get(i).getTimeslot());
-                                            detail.setBarberName(response.body().getDetails().get(i).getBarberName());
-                                            detailList.add(detail);
-                                            model.setDetails(detailList);
-                                            list.add(model);
-                                        }
+                                if (response.body().getDetails().get(i).getUpcomingPastApointment() == 0) {
 
-                                    } else {
+                                    noAppointment.setVisibility(View.GONE);
+                                    appointmentList.setVisibility(View.VISIBLE);
 
-                                    }
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
+                                    detail.setId(response.body().getDetails().get(i).getId());
+                                    detail.setUserStatus(response.body().getDetails().get(i).getUserStatus());
+                                    detail.setApointmentDate(response.body().getDetails().get(i).getApointmentDate());
+                                    detail.setUserId(response.body().getDetails().get(i).getUserId());
+                                    detail.setSubSubServiceTitle(response.body().getDetails().get(i).getSubSubServiceTitle());
+                                    detail.setTimeslot(response.body().getDetails().get(i).getTimeslot());
+                                    detail.setBarberName(response.body().getDetails().get(i).getBarberName());
+                                    detail.setPaymentMethod(response.body().getDetails().get(i).getPaymentMethod());
+                                    detail.setUpcomingPastApointment(response.body().getDetails().get(i).getUpcomingPastApointment());
+                                    detailList.add(detail);
+                                    model.setDetails(detailList);
+                                    list.add(model);
+                                } else {
+
+//                                    noAppointment.setVisibility(View.VISIBLE);
+//                                    appointmentList.setVisibility(View.GONE);
                                 }
-
                             }
-
-                            adapter = new AppointmentAdapter(activity, "Past", list, new AppointmentAdapter.CancelAppointment() {
+                            adapter = new AppointmentAdapter(getActivity(), "Past", list, new AppointmentAdapter.CancelAppointment() {
                                 @Override
                                 public void Cancel(int position) {
 //                                    WantToCancelAppointment(position);
@@ -156,23 +220,27 @@ public class PastAppointmentFragment extends Fragment {
                             });
                             appointmentList.setAdapter(adapter);
 
-                            Toast.makeText(activity, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            adapter.notifyDataSetChanged();
+//                            Toast.makeText(getActivity(), "Past", Toast.LENGTH_SHORT).show();
 
                         } else {
-                            Toast.makeText(activity, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                            noAppointment.setVisibility(View.VISIBLE);
+                            appointmentList.setVisibility(View.GONE);
+//                            Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
 
                 @Override
                 public void onFailure(Call<AppointmentModel> call, Throwable t) {
-                    //CommonUtils.dismissProgress();
-                    Toast.makeText(activity, t.toString(), Toast.LENGTH_SHORT).show();
+//                    CommonUtils.dismissProgress();
+                    Toast.makeText(getActivity(), t.toString(), Toast.LENGTH_SHORT).show();
                 }
             });
 
         } else {
-            Toast.makeText(activity, "Network Issue", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Network Issue", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -199,10 +267,41 @@ public class PastAppointmentFragment extends Fragment {
                 }
             }
         };
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener).show();
 
     }
 
+    @Override
+    public void setUserVisibleHint(boolean visible) {
+        super.setUserVisibleHint(visible);
+        // if the fragment is visible
+        if (visible) {
+            // ... but the activity has not yet been initialized
+            if (!doInOnAttach) {
+                myAction(getActivity());
+            }
+
+        } else {
+
+            // myAction(getActivity());
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (doInOnAttach) {
+            myAction(context);
+            doInOnAttach = false;
+        }
+    }
+
+    private void myAction(Context context) {
+
+//        Toast.makeText(context, "Past", Toast.LENGTH_SHORT).show();
+        SetUpRecyclerView();
+        // code to execute here
+    }
 }

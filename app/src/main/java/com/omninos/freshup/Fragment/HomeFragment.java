@@ -1,7 +1,9 @@
 package com.omninos.freshup.Fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -15,9 +17,12 @@ import android.widget.PopupMenu;
 
 import com.omninos.freshup.Activities.HomeActivity;
 import com.omninos.freshup.Activities.JoinQueueActivity;
+import com.omninos.freshup.Activities.LoginActivity;
 import com.omninos.freshup.Activities.ProfileActivity;
 import com.omninos.freshup.Activities.SettingActivity;
 import com.omninos.freshup.R;
+import com.omninos.freshup.Utils.App;
+import com.omninos.freshup.util.LocaleHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +32,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private ImageView popUpmenu,ProfileData;
     private HomeActivity activity;
     private Button serviceButton, productButton;
+
+
+    Context context;
+    Resources resources;
 
     //private TabLayout tabLayout;
     public HomeFragment() {
@@ -40,12 +49,24 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         activity= (HomeActivity) getActivity();
+
+
+        context = LocaleHelper.setLocale(activity, App.getAppPreferences().getLanguage(activity));
+        resources = context.getResources();
+
         initView(view);
+        changeLanguage();
         SetUps(view);
 
         return view;
     }
 
+    private void changeLanguage() {
+        serviceButton.setText(resources.getString(R.string.services));
+        productButton.setText(resources.getString(R.string.products));
+    }
+
+    //Find All Ids
     private void initView(View view) {
 
         serviceButton = view.findViewById(R.id.serviceButton);
@@ -56,6 +77,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         //  tabLayout=view.findViewById(R.id.tabLayout);
     }
 
+    //SetUp All Actions
     private void SetUps(View view) {
         // tabLayout.addTab(tabLayout.newTab().setText("Services"));
 //        tabLayout.addTab(tabLayout.newTab().setText("Products"));
@@ -74,6 +96,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.serviceButton:
+                //Select services
                 serviceButton.setBackground(getResources().getDrawable(R.drawable.rectangle_white_button));
                 productButton.setBackground(getResources().getDrawable(R.drawable.rectangle_button));
                 serviceButton.setTextColor(getResources().getColor(R.color.black));
@@ -82,6 +105,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.productButton:
+                //Select Products
                 serviceButton.setBackground(getResources().getDrawable(R.drawable.rectangle_button));
                 productButton.setBackground(getResources().getDrawable(R.drawable.rectangle_white_button));
                 serviceButton.setTextColor(getResources().getColor(R.color.white));
@@ -90,11 +114,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.popUpmenu:
-//                OpenPopUpMenu(v);
+//                move to Setting
                 startActivity(new Intent(activity,SettingActivity.class));
                 break;
 
             case R.id.ProfileData:
+                //Open Profile
               startActivity(new Intent(activity,ProfileActivity.class));
                 break;
         }
@@ -126,6 +151,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    //
     private void setFragment(Fragment fragment) {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.datacontainer, fragment);

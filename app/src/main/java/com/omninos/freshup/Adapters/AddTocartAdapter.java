@@ -19,8 +19,10 @@ import com.omninos.freshup.ModelClasses.GetAddToCartListModel;
 import com.omninos.freshup.R;
 import com.omninos.freshup.Retrofit.Api;
 import com.omninos.freshup.Retrofit.ApiClient;
+import com.omninos.freshup.Utils.App;
 import com.omninos.freshup.Utils.CommonUtils;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +41,7 @@ public class AddTocartAdapter extends RecyclerView.Adapter<AddTocartAdapter.MyVi
     public interface RemoveCart {
         public void RemoveData(int position);
         public void AddData(int position,int quantity);
+        public void Delete(int position);
     }
 
 
@@ -80,8 +83,10 @@ public class AddTocartAdapter extends RecyclerView.Adapter<AddTocartAdapter.MyVi
         if (Status.equalsIgnoreCase("Post")){
             myViewHolder.productName.setText(addToCartModels.get(i).getDetails().get(i).getTitle());
             myViewHolder.productPrice.setText("€"+String.valueOf(addToCartModels.get(i).getDetails().get(i).getCartPrice()));
-            Glide.with(context).load(addToCartModels.get(i).getDetails().get(i).getProductImage()).into(myViewHolder.img);
-            myViewHolder.Bind(addToCartModels.get(i).getDetails().get(i).getId());
+            List<String> items = Arrays.asList(addToCartModels.get(i).getDetails().get(i).getProductImage().split(","));
+
+            Glide.with(context).load(items.get(0)).into(myViewHolder.img);
+//            myViewHolder.Bind(addToCartModels.get(i).getDetails().get(i).getId());
             myViewHolder.elegantNumberButton.setNumber(addToCartModels.get(i).getDetails().get(i).getQuantity());
 
             myViewHolder.elegantNumberButton.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
@@ -99,8 +104,11 @@ public class AddTocartAdapter extends RecyclerView.Adapter<AddTocartAdapter.MyVi
         }else {
             myViewHolder.productName.setText(listModels.get(i).getTitle());
             myViewHolder.productPrice.setText("€"+String.valueOf(listModels.get(i).getCartPrice()));
-            Glide.with(context).load(listModels.get(i).getProductImage()).into(myViewHolder.img);
-            myViewHolder.Bind(listModels.get(i).getId());
+            List<String> items = Arrays.asList(listModels.get(i).getProductImage().split(","));
+
+            Glide.with(context).load(items.get(0)).into(myViewHolder.img);
+//            Glide.with(context).load(listModels.get(i).getProductImage()).into(myViewHolder.img);
+//            myViewHolder.Bind(listModels.get(i).getId());
             myViewHolder.elegantNumberButton.setNumber(listModels.get(i).getQuantity());
 
             myViewHolder.elegantNumberButton.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
@@ -150,69 +158,70 @@ public class AddTocartAdapter extends RecyclerView.Adapter<AddTocartAdapter.MyVi
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.deleteItem:
-                    removeCart.RemoveData(getAdapterPosition());
+//                    removeCart.RemoveData(getAdapterPosition());
+                    removeCart.Delete(getLayoutPosition());
                     break;
             }
         }
 
-        public void Bind(final String id) {
-            deleteItem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            switch (which) {
-                                case DialogInterface.BUTTON_POSITIVE:
-                                    //Yes button clicked  l
-                                    listModels.remove(getAdapterPosition());
-                                    notifyItemRemoved(getAdapterPosition());
-                                    Toast.makeText(context, id + "", Toast.LENGTH_SHORT).show();
-                                    DeleteData(id);
-                                    dialog.dismiss();
-                                    break;
+//        public void Bind(final String id) {
+//            deleteItem.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            switch (which) {
+//                                case DialogInterface.BUTTON_POSITIVE:
+//                                    //Yes button clicked  l
+//                                    listModels.remove(getAdapterPosition());
+//                                    notifyItemRemoved(getAdapterPosition());
+//                                    Toast.makeText(context, id + "", Toast.LENGTH_SHORT).show();
+//                                    DeleteData(id);
+//                                    dialog.dismiss();
+//                                    break;
+//
+//                                case DialogInterface.BUTTON_NEGATIVE:
+//                                    //No button clicked
+//                                    dialog.cancel();
+//                                    break;
+//                            }
+//                        }
+//                    };
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//                    builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+//                            .setNegativeButton("No", dialogClickListener).show();
+//
+//
+//                }
+//            });
+//        }
 
-                                case DialogInterface.BUTTON_NEGATIVE:
-                                    //No button clicked
-                                    dialog.cancel();
-                                    break;
-                            }
-                        }
-                    };
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
-                            .setNegativeButton("No", dialogClickListener).show();
-
-
-                }
-            });
-        }
-
-        private void DeleteData(String id) {
-            if (CommonUtils.isNetworkConnected(context)) {
-
-
-                Api api = ApiClient.getApiClient().create(Api.class);
-                api.DeleteItems(id).enqueue(new Callback<Map>() {
-                    @Override
-                    public void onResponse(Call<Map> call, Response<Map> response) {
-//                        CommonUtils.dismissProgress();
-                        if (response.body() != null) {
-
-                        } else {
-
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Map> call, Throwable t) {
-//                        CommonUtils.dismissProgress();
-                    }
-                });
-
-            } else {
-                Toast.makeText(context, "Network Issue", Toast.LENGTH_SHORT).show();
-            }
-        }
+//        private void DeleteData(String id) {
+//            if (CommonUtils.isNetworkConnected(context)) {
+//
+//
+//                Api api = ApiClient.getApiClient().create(Api.class);
+//                api.DeleteItems(id).enqueue(new Callback<Map>() {
+//                    @Override
+//                    public void onResponse(Call<Map> call, Response<Map> response) {
+////                        CommonUtils.dismissProgress();
+//                        if (response.body() != null) {
+//
+//                        } else {
+//
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Map> call, Throwable t) {
+////                        CommonUtils.dismissProgress();
+//                    }
+//                });
+//
+//            } else {
+//                Toast.makeText(context, "Network Issue", Toast.LENGTH_SHORT).show();
+//            }
+//        }
     }
 }

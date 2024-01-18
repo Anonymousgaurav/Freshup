@@ -1,7 +1,9 @@
 
 package com.omninos.freshup.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.omninos.freshup.R;
+import com.omninos.freshup.Utils.App;
+import com.omninos.freshup.util.LocaleHelper;
 
 public class MyServiceFirstActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -22,13 +26,24 @@ public class MyServiceFirstActivity extends AppCompatActivity implements View.On
     private TextView textbeard, textfacial, texthaircolor, texthair;
     private Button continuemove;
 
+    Context context;
+    Resources resources;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_service_first);
+        context = LocaleHelper.setLocale(MyServiceFirstActivity.this, App.getAppPreferences().getLanguage(MyServiceFirstActivity.this));
+        resources = context.getResources();
+
 
         initView();
+        ChangeLanguage();
         SetUps();
+    }
+
+    private void ChangeLanguage() {
+        continuemove.setText(resources.getString(R.string.continue_move));
     }
 
     private void initView() {
@@ -58,7 +73,7 @@ public class MyServiceFirstActivity extends AppCompatActivity implements View.On
 
         back = findViewById(R.id.back);
 
-        continuemove=findViewById(R.id.continuemove);
+        continuemove = findViewById(R.id.continuemove);
 
 
     }
@@ -77,7 +92,7 @@ public class MyServiceFirstActivity extends AppCompatActivity implements View.On
         switch (v.getId()) {
 
             case R.id.continuemove:
-                startActivity(new Intent(this,MyServiceSecond.class));
+                startActivity(new Intent(this, MyServiceSecond.class));
                 break;
             case R.id.back:
                 onBackPressed();

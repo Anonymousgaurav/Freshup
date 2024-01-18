@@ -9,6 +9,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -63,7 +64,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
 
     //facebook integration
-    implementation 'com.facebook.android:facebook-android-sdk:4.36.0'
+    implementation 'com.facebook.android:facebook-android-sdk:4.42.0'
 
     //payment
     implementation 'com.stripe:stripe-android:8.0.0'
@@ -79,4 +80,9 @@ dependencies {
 
 
     implementation 'com.google.firebase:firebase-appindexing:17.1.0'
+
+    //paypal
+    implementation 'com.braintreepayments.api:drop-in:3.7.1'
+
+    implementation 'com.android.support:multidex:1.0.3'
 }

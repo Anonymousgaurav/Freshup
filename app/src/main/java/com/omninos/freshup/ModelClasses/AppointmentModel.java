@@ -6,59 +6,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class AppointmentModel {
-//    String name;
-//    String title;
-//    String seviceName;
-//    String paymentType;
-//    String AppointmentType;
-//
-//    public AppointmentModel(String name, String title, String seviceName, String paymentType, String appointmentType) {
-//        this.name = name;
-//        this.title = title;
-//        this.seviceName = seviceName;
-//        this.paymentType = paymentType;
-//        AppointmentType = appointmentType;
-//    }
-//
-//    public String getAppointmentType() {
-//        return AppointmentType;
-//    }
-//
-//    public void setAppointmentType(String appointmentType) {
-//        AppointmentType = appointmentType;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    public String getTitle() {
-//        return title;
-//    }
-//
-//    public void setTitle(String title) {
-//        this.title = title;
-//    }
-//
-//    public String getSeviceName() {
-//        return seviceName;
-//    }
-//
-//    public void setSeviceName(String seviceName) {
-//        this.seviceName = seviceName;
-//    }
-//
-//    public String getPaymentType() {
-//        return paymentType;
-//    }
-//
-//    public void setPaymentType(String paymentType) {
-//        this.paymentType = paymentType;
-//    }
 
 
     @SerializedName("success")
@@ -95,12 +42,14 @@ public class AppointmentModel {
         this.details = details;
     }
 
-
     public static class Detail {
 
         @SerializedName("id")
         @Expose
         private String id;
+        @SerializedName("serviceTransactionsId")
+        @Expose
+        private String serviceTransactionsId;
         @SerializedName("user_id")
         @Expose
         private String userId;
@@ -116,12 +65,27 @@ public class AppointmentModel {
         @SerializedName("timeslot")
         @Expose
         private String timeslot;
+        @SerializedName("paymentStatus")
+        @Expose
+        private String paymentStatus;
+        @SerializedName("status")
+        @Expose
+        private String status;
+        @SerializedName("userStatus")
+        @Expose
+        private String userStatus;
         @SerializedName("userName")
         @Expose
         private String userName;
         @SerializedName("barberName")
         @Expose
         private String barberName;
+        @SerializedName("upcomingPastApointment")
+        @Expose
+        private Integer upcomingPastApointment;
+        @SerializedName("paymentMethod")
+        @Expose
+        private String paymentMethod;
         @SerializedName("subSubService_title")
         @Expose
         private List<SubSubServiceTitle> subSubServiceTitle = null;
@@ -132,6 +96,14 @@ public class AppointmentModel {
 
         public void setId(String id) {
             this.id = id;
+        }
+
+        public String getServiceTransactionsId() {
+            return serviceTransactionsId;
+        }
+
+        public void setServiceTransactionsId(String serviceTransactionsId) {
+            this.serviceTransactionsId = serviceTransactionsId;
         }
 
         public String getUserId() {
@@ -174,6 +146,30 @@ public class AppointmentModel {
             this.timeslot = timeslot;
         }
 
+        public String getPaymentStatus() {
+            return paymentStatus;
+        }
+
+        public void setPaymentStatus(String paymentStatus) {
+            this.paymentStatus = paymentStatus;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public String getUserStatus() {
+            return userStatus;
+        }
+
+        public void setUserStatus(String userStatus) {
+            this.userStatus = userStatus;
+        }
+
         public String getUserName() {
             return userName;
         }
@@ -190,6 +186,22 @@ public class AppointmentModel {
             this.barberName = barberName;
         }
 
+        public Integer getUpcomingPastApointment() {
+            return upcomingPastApointment;
+        }
+
+        public void setUpcomingPastApointment(Integer upcomingPastApointment) {
+            this.upcomingPastApointment = upcomingPastApointment;
+        }
+
+        public String getPaymentMethod() {
+            return paymentMethod;
+        }
+
+        public void setPaymentMethod(String paymentMethod) {
+            this.paymentMethod = paymentMethod;
+        }
+
         public List<SubSubServiceTitle> getSubSubServiceTitle() {
             return subSubServiceTitle;
         }
@@ -199,7 +211,6 @@ public class AppointmentModel {
         }
 
     }
-
     public class SubSubServiceTitle {
 
         @SerializedName("title")

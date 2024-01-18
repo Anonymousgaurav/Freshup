@@ -2,10 +2,12 @@ package com.omninos.freshup.Utils;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.omninos.freshup.ModelClasses.AppointmentModel;
 import com.omninos.freshup.ModelClasses.GetHomeDataModel;
+import com.omninos.freshup.ModelClasses.QueueModelClass;
 import com.omninos.freshup.ModelClasses.SingleProductCategoryModel;
 
 import java.util.List;
@@ -49,6 +51,19 @@ public class AppPreferences {
         UserMobile = userMobile;
     }
 
+
+    public  void saveLanguage(Activity activity,String id){
+        SharedPreferences sharedPreferences=activity.getSharedPreferences("FreshUpFile",0);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putString("Lng",id);
+        editor.commit();
+    }
+
+    public  String getLanguage(Activity activity){
+        SharedPreferences sharedPreferences=activity.getSharedPreferences("FreshUpFile",0);
+        return sharedPreferences.getString("Lng","");
+    }
+
     public  void saveUserId(Activity activity,String id){
         SharedPreferences sharedPreferences=activity.getSharedPreferences("FreshUpFile",0);
         SharedPreferences.Editor editor=sharedPreferences.edit();
@@ -57,6 +72,11 @@ public class AppPreferences {
     }
 
     public  String getUserId(Activity activity){
+        SharedPreferences sharedPreferences=activity.getSharedPreferences("FreshUpFile",0);
+        return sharedPreferences.getString("ID","");
+    }
+
+    public  String getUserId1(Context activity){
         SharedPreferences sharedPreferences=activity.getSharedPreferences("FreshUpFile",0);
         return sharedPreferences.getString("ID","");
     }
@@ -345,5 +365,25 @@ public class AppPreferences {
 
     public void setMultipleImages(List<String> multipleImages) {
         this.multipleImages = multipleImages;
+    }
+
+    public String selecteAppointmentDate;
+
+    public String getSelecteAppointmentDate() {
+        return selecteAppointmentDate;
+    }
+
+    public void setSelecteAppointmentDate(String selecteAppointmentDate) {
+        this.selecteAppointmentDate = selecteAppointmentDate;
+    }
+
+    public List<QueueModelClass.BookingDetail> bookingDetailList=null;
+
+    public List<QueueModelClass.BookingDetail> getBookingDetailList() {
+        return bookingDetailList;
+    }
+
+    public void setBookingDetailList(List<QueueModelClass.BookingDetail> bookingDetailList) {
+        this.bookingDetailList = bookingDetailList;
     }
 }

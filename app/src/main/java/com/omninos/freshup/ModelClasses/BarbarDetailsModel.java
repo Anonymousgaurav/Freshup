@@ -39,7 +39,6 @@ public class BarbarDetailsModel {
     public void setDetails(Details details) {
         this.details = details;
     }
-
     public static class Details {
 
         @SerializedName("barberDeatils")
@@ -66,7 +65,6 @@ public class BarbarDetailsModel {
         }
 
     }
-
     public class BookingTime {
 
         @SerializedName("timeslot")
@@ -93,7 +91,6 @@ public class BarbarDetailsModel {
         }
 
     }
-
     public class BarberDeatil {
 
         @SerializedName("startDate")
@@ -173,9 +170,8 @@ public class BarbarDetailsModel {
         public void setBookingTime(List<BookingTime> bookingTime) {
             this.bookingTime = bookingTime;
         }
-    }
 
-    public class TimeSlotDetails {
+    }public class TimeSlotDetails {
 
         @SerializedName("id")
         @Expose
@@ -189,6 +185,60 @@ public class BarbarDetailsModel {
         @SerializedName("end_time")
         @Expose
         private String endTime;
+        @SerializedName("working_days")
+        @Expose
+        private String workingDays;
+        @SerializedName("non_working_days")
+        @Expose
+        private String nonWorkingDays;
+        @SerializedName("regularFirstShiftStartTime")
+        @Expose
+        private String regularFirstShiftStartTime;
+        @SerializedName("regularFirstShiftEndTime")
+        @Expose
+        private String regularFirstShiftEndTime;
+        @SerializedName("regularSecondShiftStartTime")
+        @Expose
+        private String regularSecondShiftStartTime;
+        @SerializedName("regularSecondShiftEndTime")
+        @Expose
+        private String regularSecondShiftEndTime;
+        @SerializedName("weekendFirstShiftStartTime")
+        @Expose
+        private String weekendFirstShiftStartTime;
+        @SerializedName("weekendFirstShiftEndTime")
+        @Expose
+        private String weekendFirstShiftEndTime;
+        @SerializedName("weekendSecondShiftStartTime")
+        @Expose
+        private String weekendSecondShiftStartTime;
+        @SerializedName("weekendSecondShiftEndTime")
+        @Expose
+        private String weekendSecondShiftEndTime;
+        @SerializedName("holiday_startDate")
+        @Expose
+        private String holidayStartDate;
+        @SerializedName("holiday_endDate")
+        @Expose
+        private String holidayEndDate;
+        @SerializedName("regular_times")
+        @Expose
+        private String regularTimes;
+        @SerializedName("weekend_times")
+        @Expose
+        private String weekendTimes;
+        @SerializedName("firstShiftStartTime")
+        @Expose
+        private String firstShiftStartTime;
+        @SerializedName("firstShiftEndTime")
+        @Expose
+        private String firstShiftEndTime;
+        @SerializedName("secondShifStartTime")
+        @Expose
+        private String secondShifStartTime;
+        @SerializedName("secondShifEndTime")
+        @Expose
+        private String secondShifEndTime;
 
         public String getId() {
             return id;
@@ -220,6 +270,150 @@ public class BarbarDetailsModel {
 
         public void setEndTime(String endTime) {
             this.endTime = endTime;
+        }
+
+        public String getWorkingDays() {
+            return workingDays;
+        }
+
+        public void setWorkingDays(String workingDays) {
+            this.workingDays = workingDays;
+        }
+
+        public String getNonWorkingDays() {
+            return nonWorkingDays;
+        }
+
+        public void setNonWorkingDays(String nonWorkingDays) {
+            this.nonWorkingDays = nonWorkingDays;
+        }
+
+        public String getRegularFirstShiftStartTime() {
+            return regularFirstShiftStartTime;
+        }
+
+        public void setRegularFirstShiftStartTime(String regularFirstShiftStartTime) {
+            this.regularFirstShiftStartTime = regularFirstShiftStartTime;
+        }
+
+        public String getRegularFirstShiftEndTime() {
+            return regularFirstShiftEndTime;
+        }
+
+        public void setRegularFirstShiftEndTime(String regularFirstShiftEndTime) {
+            this.regularFirstShiftEndTime = regularFirstShiftEndTime;
+        }
+
+        public String getRegularSecondShiftStartTime() {
+            return regularSecondShiftStartTime;
+        }
+
+        public void setRegularSecondShiftStartTime(String regularSecondShiftStartTime) {
+            this.regularSecondShiftStartTime = regularSecondShiftStartTime;
+        }
+
+        public String getRegularSecondShiftEndTime() {
+            return regularSecondShiftEndTime;
+        }
+
+        public void setRegularSecondShiftEndTime(String regularSecondShiftEndTime) {
+            this.regularSecondShiftEndTime = regularSecondShiftEndTime;
+        }
+
+        public String getWeekendFirstShiftStartTime() {
+            return weekendFirstShiftStartTime;
+        }
+
+        public void setWeekendFirstShiftStartTime(String weekendFirstShiftStartTime) {
+            this.weekendFirstShiftStartTime = weekendFirstShiftStartTime;
+        }
+
+        public String getWeekendFirstShiftEndTime() {
+            return weekendFirstShiftEndTime;
+        }
+
+        public void setWeekendFirstShiftEndTime(String weekendFirstShiftEndTime) {
+            this.weekendFirstShiftEndTime = weekendFirstShiftEndTime;
+        }
+
+        public String getWeekendSecondShiftStartTime() {
+            return weekendSecondShiftStartTime;
+        }
+
+        public void setWeekendSecondShiftStartTime(String weekendSecondShiftStartTime) {
+            this.weekendSecondShiftStartTime = weekendSecondShiftStartTime;
+        }
+
+        public String getWeekendSecondShiftEndTime() {
+            return weekendSecondShiftEndTime;
+        }
+
+        public void setWeekendSecondShiftEndTime(String weekendSecondShiftEndTime) {
+            this.weekendSecondShiftEndTime = weekendSecondShiftEndTime;
+        }
+
+        public String getHolidayStartDate() {
+            return holidayStartDate;
+        }
+
+        public void setHolidayStartDate(String holidayStartDate) {
+            this.holidayStartDate = holidayStartDate;
+        }
+
+        public String getHolidayEndDate() {
+            return holidayEndDate;
+        }
+
+        public void setHolidayEndDate(String holidayEndDate) {
+            this.holidayEndDate = holidayEndDate;
+        }
+
+        public String getRegularTimes() {
+            return regularTimes;
+        }
+
+        public void setRegularTimes(String regularTimes) {
+            this.regularTimes = regularTimes;
+        }
+
+        public String getWeekendTimes() {
+            return weekendTimes;
+        }
+
+        public void setWeekendTimes(String weekendTimes) {
+            this.weekendTimes = weekendTimes;
+        }
+
+        public String getFirstShiftStartTime() {
+            return firstShiftStartTime;
+        }
+
+        public void setFirstShiftStartTime(String firstShiftStartTime) {
+            this.firstShiftStartTime = firstShiftStartTime;
+        }
+
+        public String getFirstShiftEndTime() {
+            return firstShiftEndTime;
+        }
+
+        public void setFirstShiftEndTime(String firstShiftEndTime) {
+            this.firstShiftEndTime = firstShiftEndTime;
+        }
+
+        public String getSecondShifStartTime() {
+            return secondShifStartTime;
+        }
+
+        public void setSecondShifStartTime(String secondShifStartTime) {
+            this.secondShifStartTime = secondShifStartTime;
+        }
+
+        public String getSecondShifEndTime() {
+            return secondShifEndTime;
+        }
+
+        public void setSecondShifEndTime(String secondShifEndTime) {
+            this.secondShifEndTime = secondShifEndTime;
         }
 
     }

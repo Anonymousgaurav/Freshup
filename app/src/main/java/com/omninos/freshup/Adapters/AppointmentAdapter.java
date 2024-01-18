@@ -37,6 +37,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     String currentDate, currentTime;
     DateFormat dateFormat, timeFormat;
 
+
     public interface CancelAppointment {
         public void Cancel(int position);
     }
@@ -83,16 +84,18 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             myViewHolder.barbarName.setText(All.get(i).getDetails().get(i).getBarberName());
 
 
-            int size = All.get(i).getDetails().get(i).getSubSubServiceTitle().size();
-            if (listdata != null) {
-                listdata.clear();
-            }
-            for (int j = 0; j < size; j++) {
-                listdata.add(All.get(i).getDetails().get(i).getSubSubServiceTitle().get(j).getTitle());
-            }
+
 
             StringBuilder stringBuilder;
             try {
+                int size = All.get(i).getDetails().get(i).getSubSubServiceTitle().size();
+                if (listdata != null) {
+                    listdata.clear();
+                }
+                for (int j = 0; j < size; j++) {
+                    listdata.add(All.get(i).getDetails().get(i).getSubSubServiceTitle().get(j).getTitle());
+                }
+
                 stringBuilder = new StringBuilder();
                 for (String s : listdata) {
                     stringBuilder.append(s + ",");
@@ -109,38 +112,60 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             myViewHolder.servicename.setText(InterestData);
             myViewHolder.timeType.setText(All.get(i).getDetails().get(i).getTimeslot());
             myViewHolder.dateType.setText(All.get(i).getDetails().get(i).getApointmentDate());
+            myViewHolder.paymentType.setText(All.get(i).getDetails().get(i).getPaymentMethod());
 
-            List<String> list = new ArrayList<String>(Arrays.asList(All.get(i).getDetails().get(i).getTimeslot().split(",")));
-            for (int j = 0; j < list.size(); j++) {
-                try {
-                    Date appointMentTime = timeFormat.parse(list.get(j));
-                    Date timeData = timeFormat.parse(currentTime);
-
-                    Date appointMentDate = dateFormat.parse(All.get(i).getDetails().get(i).getApointmentDate());
-                    Date Current = dateFormat.parse(currentDate);
-
-                    if (Current.getTime() > appointMentDate.getTime()) {
-                        myViewHolder.cancel.setVisibility(View.GONE);
-                    } else {
-                        if (Current.getTime() == appointMentDate.getTime()){
-                            if (timeData.getTime() > appointMentTime.getTime()) {
-                                Log.d("TimeData : ", "IF");
-                                myViewHolder.cancel.setVisibility(View.GONE);
-                            } else {
-                                Log.d("TimeData : ", "Else");
-                                myViewHolder.cancel.setVisibility(View.VISIBLE);
-                            }
-                        }else {
-                            myViewHolder.cancel.setVisibility(View.VISIBLE);
-                        }
-
-                    }
-
-
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+            if (All.get(i).getDetails().get(i).getUpcomingPastApointment() == 1) {
+                myViewHolder.cancel.setVisibility(View.VISIBLE);
+            } else {
+                myViewHolder.cancel.setVisibility(View.GONE);
             }
+//            List<String> list = new ArrayList<String>(Arrays.asList(All.get(i).getDetails().get(i).getTimeslot().split(",")));
+//            for (int j = 0; j < list.size(); j++) {
+//                try {
+//                    Date appointMentTime = timeFormat.parse(list.get(j));
+//                    Date timeData = timeFormat.parse(currentTime);
+//
+//                    Date appointMentDate = dateFormat.parse(All.get(i).getDetails().get(i).getApointmentDate());
+//                    Date Current = dateFormat.parse(currentDate);
+//
+//                    if (Current.getTime() > appointMentDate.getTime()) {
+//                        myViewHolder.cancel.setVisibility(View.GONE);
+//
+//                    } else {
+//                        if (Current.getTime() == appointMentDate.getTime()) {
+//                            if (timeData.getTime() > appointMentTime.getTime()) {
+//                                Log.d("TimeData : ", "IF");
+//                                myViewHolder.cancel.setVisibility(View.GONE);
+//                                if (All.get(i).getDetails().get(i).getUserStatus().equalsIgnoreCase("1")) {
+//                                    myViewHolder.cancel.setVisibility(View.GONE);
+//                                } else {
+//                                    myViewHolder.cancel.setVisibility(View.VISIBLE);
+//                                }
+//                            } else {
+//                                Log.d("TimeData : ", "Else");
+//                                myViewHolder.cancel.setVisibility(View.VISIBLE);
+//                                if (All.get(i).getDetails().get(i).getUserStatus().equalsIgnoreCase("1")) {
+//                                    myViewHolder.cancel.setVisibility(View.GONE);
+//                                } else {
+//                                    myViewHolder.cancel.setVisibility(View.VISIBLE);
+//                                }
+//                            }
+//                        } else {
+//                            myViewHolder.cancel.setVisibility(View.VISIBLE);
+//                            if (All.get(i).getDetails().get(i).getUserStatus().equalsIgnoreCase("1")) {
+//                                myViewHolder.cancel.setVisibility(View.GONE);
+//                            } else {
+//                                myViewHolder.cancel.setVisibility(View.VISIBLE);
+//                            }
+//                        }
+//
+//                    }
+//
+//
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
+//            }
 //            try {
 //                Date appointMentDate = dateFormat.parse(All.get(i).getDetails().get(i).getApointmentDate());
 //                Date Current = dateFormat.parse(currentDate);
@@ -160,17 +185,18 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             myViewHolder.barbarName.setText(Past.get(i).getDetails().get(i).getBarberName());
 
 
-            int size = Past.get(i).getDetails().get(i).getSubSubServiceTitle().size();
-            if (listdata != null) {
-                listdata.clear();
-            }
-            for (int j = 0; j < size; j++) {
 
-                listdata.add(Past.get(i).getDetails().get(i).getSubSubServiceTitle().get(j).getTitle());
-            }
 
             StringBuilder stringBuilder;
             try {
+                int size = Past.get(i).getDetails().get(i).getSubSubServiceTitle().size();
+                if (listdata != null) {
+                    listdata.clear();
+                }
+                for (int j = 0; j < size; j++) {
+
+                    listdata.add(Past.get(i).getDetails().get(i).getSubSubServiceTitle().get(j).getTitle());
+                }
                 stringBuilder = new StringBuilder();
                 for (String s : listdata) {
                     stringBuilder.append(s + ",");
@@ -187,11 +213,14 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             myViewHolder.servicename.setText(InterestData);
             myViewHolder.timeType.setText(Past.get(i).getDetails().get(i).getTimeslot());
             myViewHolder.dateType.setText(Past.get(i).getDetails().get(i).getApointmentDate());
+            myViewHolder.paymentType.setText(Past.get(i).getDetails().get(i).getPaymentMethod());
             myViewHolder.cancel.setVisibility(View.GONE);
+//            if (Past.get(i).getDetails().get(i).getUserStatus().equalsIgnoreCase("1")) {
+//                myViewHolder.cancel.setVisibility(View.GONE);
+//            }
+
         } else {
             myViewHolder.barbarName.setText(Upcomming.get(i).getDetails().get(i).getBarberName());
-
-
             int size = Upcomming.get(i).getDetails().get(i).getSubSubServiceTitle().size();
             if (listdata != null) {
                 listdata.clear();
@@ -219,6 +248,12 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             myViewHolder.servicename.setText(InterestData);
             myViewHolder.timeType.setText(Upcomming.get(i).getDetails().get(i).getTimeslot());
             myViewHolder.dateType.setText(Upcomming.get(i).getDetails().get(i).getApointmentDate());
+            myViewHolder.paymentType.setText(Upcomming.get(i).getDetails().get(i).getPaymentMethod());
+//            if (Upcomming.get(i).getDetails().get(i).getUserStatus().equalsIgnoreCase("1")){
+//                myViewHolder.cancel.setVisibility(View.GONE);
+//            }else {
+//                myViewHolder.cancel.setVisibility(View.VISIBLE);
+//            }
         }
 
     }

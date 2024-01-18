@@ -61,10 +61,12 @@
 
 
             <android.support.v7.widget.CardView
+                app:cardUseCompatPadding="true"
                 android:id="@+id/firstCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/item_text"
+                android:layout_alignParentBottom="true"
                 android:layout_marginStart="@dimen/dp_12"
                 android:layout_marginTop="@dimen/dp_6"
                 android:layout_marginEnd="@dimen/dp_12"
@@ -121,7 +123,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginBottom="@dimen/dp_10"
-                                android:text="Select the Date"
+                                android:text="@string/select_the_date"
                                 android:textAllCaps="true"
                                 android:textColor="@color/light_yellow"
                                 android:textSize="@dimen/sp_16" />
@@ -138,6 +140,7 @@
                                 app:weekTextColor="@color/light_yellow" />
 
                             <android.support.v7.widget.CardView
+                                android:id="@+id/dateCard"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/weekCalendar"
@@ -157,6 +160,28 @@
                                     android:textSize="@dimen/sp_16" />
 
                             </android.support.v7.widget.CardView>
+
+                            <TextView
+                                android:id="@+id/holidays"
+                                android:maxLines="1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/dateCard"
+                                android:layout_marginStart="@dimen/dp_20"
+                                android:layout_marginTop="@dimen/dp_10"
+                                android:layout_marginBottom="@dimen/dp_10"
+                                android:text="@string/holiday" />
+
+                            <TextView
+                                android:id="@+id/holidaysDate"
+                                android:maxLines="1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/holidays"
+                                android:layout_marginStart="@dimen/dp_20"
+                                android:layout_marginTop="@dimen/dp_10"
+                                android:layout_marginBottom="@dimen/dp_10"
+                                android:text="" />
                         </RelativeLayout>
                     </android.support.v7.widget.CardView>
 
@@ -168,7 +193,7 @@
                         android:layout_marginStart="@dimen/dp_14"
                         android:layout_marginTop="@dimen/dp_10"
                         android:layout_marginBottom="@dimen/dp_10"
-                        android:text="Pick a time slot"
+                        android:text="@string/pick_a_time_slot"
                         android:textAllCaps="true"
                         android:textColor="@color/light_yellow"
                         android:textSize="@dimen/sp_16" />
@@ -212,7 +237,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/singleView"
                                 android:layout_marginTop="@dimen/dp_6"
-                                android:layout_marginBottom="@dimen/dp_6"></android.support.v7.widget.RecyclerView>
+                                android:layout_marginBottom="@dimen/dp_6">
+
+                            </android.support.v7.widget.RecyclerView>
                         </RelativeLayout>
                     </android.support.v7.widget.CardView>
 
@@ -274,16 +301,18 @@
                             android:layout_height="wrap_content">
 
                         </android.support.v7.widget.RecyclerView>
+
                         <TextView
+                            android:id="@+id/closeShop"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:text="Shop Close"
-                            android:textSize="@dimen/dp_30"
+                            android:text="@string/shop_close"
                             android:textColor="@color/black"
+                            android:textSize="@dimen/dp_30"
+                            android:layout_marginBottom="@dimen/dp_60"
                             android:textStyle="bold"
-                            android:id="@+id/closeShop"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
                     </RelativeLayout>
 
                     <Button
@@ -296,7 +325,7 @@
                         android:layout_marginEnd="@dimen/dp_32"
                         android:layout_marginBottom="32dp"
                         android:background="@drawable/button_background"
-                        android:text="Next"
+                        android:text="@string/bt_next"
                         android:textAllCaps="false"
                         android:textColor="@color/white" />
                 </RelativeLayout>

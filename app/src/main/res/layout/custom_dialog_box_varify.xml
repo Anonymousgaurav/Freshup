@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:layout_marginTop="@dimen/dp_20"
-            android:text="Your Mobile Number Successfully Verified."/>
+            android:text="@string/your_mobile_number_successfully_verified"/>
 
             <Button
                 android:id="@+id/done"
@@ -42,7 +42,7 @@
                 android:layout_marginTop="@dimen/dp_20"
                 android:layout_marginStart="@dimen/dp_32"
                 android:layout_marginEnd="@dimen/dp_32"
-                android:text="Done"
+                android:text="@string/done"
                 android:textColor="@color/white"
                 android:background="@drawable/rectangle_button"
                 android:layout_width="match_parent"

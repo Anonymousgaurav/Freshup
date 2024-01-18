@@ -24,11 +24,16 @@ public class SplashActivity extends AppCompatActivity {
                 super.run();
                 try {
                     sleep(3000);
+                    //check user already login or not
                     if (App.getAppPreferences().getToken(activity).equalsIgnoreCase("1")) {
+                        //if login then move to home Page
                         startActivity(new Intent(activity, HomeActivity.class));
                         finishAffinity();
                     } else {
-                        startActivity(new Intent(activity, WellcomeScreenActivity.class));
+                        //if not then move to login Screen
+                        Intent intent = new Intent(activity, ChooseLanguageActivity.class);
+                        intent.putExtra("Move", "0");
+                        startActivity(intent);
                         finishAffinity();
                     }
                 } catch (InterruptedException e) {

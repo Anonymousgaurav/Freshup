@@ -29,8 +29,6 @@ public class AppointmentPagerAdapter extends FragmentPagerAdapter {
             case 2:
                 PastAppointmentFragment pastAppointmentFragment = new PastAppointmentFragment();
                 return pastAppointmentFragment;
-
-
             default:
                 return null;
         }

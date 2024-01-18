@@ -19,11 +19,12 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/cartText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_10"
-        android:text="Cart"
+        android:text="@string/cart"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_16" />
 
@@ -55,7 +56,7 @@
                 android:id="@+id/emptyCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Empty Cart"
+                android:text="@string/empty_cart"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dp_30"
                 android:layout_centerInParent="true"/>
@@ -71,7 +72,7 @@
         android:layout_above="@id/buyItems"
         android:layout_marginStart="@dimen/dp_30"
         android:layout_marginBottom="@dimen/dp_10"
-        android:text="Total Price"
+        android:text="@string/total_price"
         android:textColor="@color/black"
         android:textStyle="bold" />
 
@@ -106,6 +107,6 @@
         android:layout_marginEnd="@dimen/dp_80"
         android:layout_marginBottom="@dimen/dp_20"
         android:background="@drawable/button_background"
-        android:text="Buy"
+        android:text="@string/buy"
         android:textColor="@color/white" />
 </RelativeLayout>

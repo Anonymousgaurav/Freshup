@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Window;
@@ -17,6 +18,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+
+import static android.content.Context.CONNECTIVITY_SERVICE;
 
 public class CommonUtils {
     private static Dialog progressDialog;
@@ -46,9 +49,16 @@ public class CommonUtils {
         }
     }
 
-    public static boolean isNetworkConnected(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null;
+    public static boolean isNetworkConnected(Context activity) {
+        boolean check = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) activity.getSystemService(CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (check = networkInfo != null && networkInfo.isConnected() && networkInfo.isAvailable()) {
+            return check;
+        } else {
+            return check;
+        }
     }
 
     public static void CopyStream(InputStream is, OutputStream os) {

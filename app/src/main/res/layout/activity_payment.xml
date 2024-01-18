@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/product_item"
         android:layout_centerHorizontal="true"
-        android:text="Payment"
+        android:text="@string/payment"
         android:textAllCaps="true"
         android:textColor="@color/white" />
 
@@ -92,18 +92,20 @@
 
 
                         <TextView
+                            android:id="@+id/textName"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Name"
+                            android:text="@string/name"
                             android:textColor="@color/black"
                             android:textSize="@dimen/sp_16" />
 
                         <TextView
+                            android:id="@+id/textSurname"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Surname"
+                            android:text="@string/surname"
                             android:textColor="@color/black"
                             android:textSize="@dimen/sp_16" />
 
@@ -128,7 +130,7 @@
                             android:layout_marginRight="@dimen/dp_10"
                             android:layout_weight="1"
                             android:background="@drawable/back_ring"
-                            android:hint="Enter Name"
+                            android:hint="@string/name"
                             android:inputType="text"
                             android:paddingStart="10dp"
                             android:paddingLeft="10dp"
@@ -146,7 +148,7 @@
                             android:layout_marginEnd="@dimen/dp_10"
                             android:layout_weight="1"
                             android:background="@drawable/back_ring"
-                            android:hint="Enter Surname"
+                            android:hint="@string/surname"
                             android:inputType="text"
                             android:paddingStart="10dp"
                             android:paddingLeft="10dp"
@@ -160,11 +162,12 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/textCardNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_10"
                         android:layout_marginTop="@dimen/dp_20"
-                        android:text="Card Number"
+                        android:text="@string/card_number"
                         android:textColor="@color/black"
                         android:textSize="@dimen/sp_16" />
 
@@ -177,7 +180,7 @@
                         android:layout_marginTop="@dimen/dp_4"
                         android:layout_marginEnd="@dimen/dp_10"
                         android:background="@drawable/back_ring"
-                        android:hint="Enter Card Number"
+                        android:hint="@string/card_number"
                         android:inputType="number"
                         android:maxLength="16"
                         android:paddingStart="10dp"
@@ -209,7 +212,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dp_4"
-                                android:hint="Expiry Date"
+                                android:hint="@string/expiry_date"
                                 android:inputType="number"
                                 android:paddingStart="10dp"
                                 android:paddingLeft="10dp"
@@ -245,7 +248,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dp_4"
-                                android:hint="CVV"
+                                android:hint="@string/cvv"
                                 android:inputType="number"
                                 android:maxLength="3"
                                 android:paddingStart="10dp"
@@ -292,7 +295,7 @@
                             android:background="@drawable/button_background"
                             android:gravity="center_horizontal"
                             android:padding="@dimen/dp_14"
-                            android:text="Verify"
+                            android:text="@string/verify"
                             android:textAllCaps="true"
                             android:textColor="@color/white"
                             android:textSize="@dimen/sp_16" />
@@ -335,12 +338,13 @@
                             android:src="@drawable/ic_visa" />
 
                         <TextView
+                            android:id="@+id/stripText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="@dimen/dp_10"
                             android:layout_toEndOf="@id/stripe"
-                            android:text="Stripe"
+                            android:text="@string/stripe"
                             android:textAllCaps="false"
                             android:textColor="@color/light_yellow"
                             android:textSize="@dimen/sp_18" />
@@ -366,12 +370,13 @@
                             android:src="@drawable/ic_paypal" />
 
                         <TextView
+                            android:id="@+id/textPaypal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="@dimen/dp_10"
                             android:layout_toEndOf="@id/paypal"
-                            android:text="Paypal"
+                            android:text="@string/paypal"
                             android:textAllCaps="false"
                             android:textColor="@color/light_yellow"
                             android:textSize="@dimen/sp_18" />
@@ -397,12 +402,13 @@
                             android:src="@drawable/ic_money" />
 
                         <TextView
+                            android:id="@+id/textCash"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="@dimen/dp_10"
                             android:layout_toEndOf="@id/cash"
-                            android:text="Cash"
+                            android:text="@string/cash"
                             android:textAllCaps="false"
                             android:textColor="@color/light_yellow"
                             android:textSize="@dimen/sp_18" />

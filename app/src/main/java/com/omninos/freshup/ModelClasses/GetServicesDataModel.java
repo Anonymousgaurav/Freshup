@@ -51,6 +51,9 @@ public class GetServicesDataModel {
         @SerializedName("title")
         @Expose
         private String title;
+        @SerializedName("frenchTitle")
+        @Expose
+        private String frenchTitle;
         @SerializedName("created")
         @Expose
         private String created;
@@ -83,6 +86,14 @@ public class GetServicesDataModel {
 
         public void setTitle(String title) {
             this.title = title;
+        }
+
+        public String getFrenchTitle() {
+            return frenchTitle;
+        }
+
+        public void setFrenchTitle(String frenchTitle) {
+            this.frenchTitle = frenchTitle;
         }
 
         public String getCreated() {
@@ -125,6 +136,9 @@ public class GetServicesDataModel {
         @SerializedName("title")
         @Expose
         private String title;
+        @SerializedName("frenchTitle")
+        @Expose
+        private String frenchTitle;
         @SerializedName("price")
         @Expose
         private String price;
@@ -165,6 +179,14 @@ public class GetServicesDataModel {
 
         public void setTitle(String title) {
             this.title = title;
+        }
+
+        public String getFrenchTitle() {
+            return frenchTitle;
+        }
+
+        public void setFrenchTitle(String frenchTitle) {
+            this.frenchTitle = frenchTitle;
         }
 
         public String getPrice() {

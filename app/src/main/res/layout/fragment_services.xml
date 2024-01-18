@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dp_4"
-                    android:text="JOIN QUEUE"
+                    android:text="@string/join_queue"
                     android:textColor="@color/white" />
             </LinearLayout>
 

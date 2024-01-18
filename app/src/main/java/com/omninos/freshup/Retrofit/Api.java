@@ -12,11 +12,16 @@ import com.omninos.freshup.ModelClasses.GetSubServices;
 import com.omninos.freshup.ModelClasses.GetSubSubServices;
 import com.omninos.freshup.ModelClasses.OrderHistoryModel;
 import com.omninos.freshup.ModelClasses.OtpPojo;
+import com.omninos.freshup.ModelClasses.PaymentModel;
+import com.omninos.freshup.ModelClasses.PaypaldataModel;
 import com.omninos.freshup.ModelClasses.ProductBuyModel;
+import com.omninos.freshup.ModelClasses.QueueModelClass;
 import com.omninos.freshup.ModelClasses.RegisterModel;
 import com.omninos.freshup.ModelClasses.SimplePojo;
 import com.omninos.freshup.ModelClasses.SingleProductCategoryModel;
 import com.omninos.freshup.ModelClasses.SocialLoginModel;
+import com.omninos.freshup.ModelClasses.SocialLoginModelClass;
+import com.omninos.freshup.ModelClasses.TokenModel;
 
 import java.util.Map;
 
@@ -114,7 +119,8 @@ public interface Api {
 
     @FormUrlEncoded
     @POST("getUserBookingSercices")
-    Call<AppointmentModel> getAppointment(@Field("userId") String userId);
+    Call<AppointmentModel> getAppointment(@Field("userId") String userId,
+                                          @Field("currentTime") String currentTime);
 
     @FormUrlEncoded
     @POST("addToCart")
@@ -156,6 +162,7 @@ public interface Api {
                                      @Field("orderId") String orderId);
 
     @FormUrlEncoded
+//    @POST("userServicesPaymentAcceptance")
     @POST("userServicesPaymentAcceptance")
     Call<Map> bookingServicePayment(@Field("paymentMethod") String paymentMethod,
                                     @Field("userId") String userId,
@@ -170,4 +177,38 @@ public interface Api {
     @FormUrlEncoded
     @POST("userProductSaleOrderHistory")
     Call<OrderHistoryModel> orderHistory(@Field("userId") String userId);
+
+    @FormUrlEncoded
+    @POST("checkSocialId")
+    Call<SocialLoginModelClass> CheckSocialId(@Field("social_id") String social_id);
+
+    @FormUrlEncoded
+    @POST("userCancelBookingService")
+    Call<Map> Cancel(@Field("bookingServiceId") String bookingServiceId);
+
+
+    @FormUrlEncoded
+    @POST("getBarberBokkingServiceDetails")
+    Call<QueueModelClass> JoinQueue(@Field("apointmentDate") String apointmentDate,
+                                    @Field("currentTime") String currentTime);
+
+    @FormUrlEncoded
+    @POST("joinQueBookingService")
+    Call<Map> justJoin(@Field("userId") String userId,
+                       @Field("apointmentDate") String apointmentDate,
+                       @Field("barberId") String barberId);
+
+
+    @GET("genrateToken")
+    Call<TokenModel> getToken();
+
+
+    @FormUrlEncoded
+    @POST("paypalCheckOut")
+    Call<PaypaldataModel> getCheckOut(@Field("amount") String ammount,
+                                      @Field("nonce") String nonce);
+
+    @GET("paymentStatus")
+    Call<PaymentModel> getPaymentModel();
+
 }

@@ -1,6 +1,8 @@
 package com.omninos.freshup.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +24,7 @@ import com.omninos.freshup.Retrofit.Api;
 import com.omninos.freshup.Retrofit.ApiClient;
 import com.omninos.freshup.Utils.App;
 import com.omninos.freshup.Utils.CommonUtils;
+import com.omninos.freshup.util.LocaleHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +34,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SubServicesActivity extends AppCompatActivity implements View.OnClickListener {
+
 
     SubServicesActivity activity;
     private RecyclerView subServices;
@@ -47,15 +51,34 @@ public class SubServicesActivity extends AppCompatActivity implements View.OnCli
     private List<GetServicesDataModel> list = new ArrayList<>();
     private List<GetServicesDataModel.Detail> detaillist = new ArrayList<>();
 
+
+    Context context;
+    Resources resources;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_services);
         activity = SubServicesActivity.this;
+
+        App.getAppPreferences().setTimeSlote(null);
+        App.getAppPreferences().setSaveServiceName(null);
+        App.getAppPreferences().setBarbarName(null);
+        App.getAppPreferences().setServicesName(null);
+
+        context = LocaleHelper.setLocale(SubServicesActivity.this, App.getAppPreferences().getLanguage(SubServicesActivity.this));
+        resources = context.getResources();
+
+
         initView();
         SetUps();
+        Changelanguage();
         SetUpRecyclerView();
 
+    }
+
+    private void Changelanguage() {
+        continuemove.setText(resources.getString(R.string.continue_move));
     }
 
     private void SetUpRecyclerView() {
@@ -84,8 +107,10 @@ public class SubServicesActivity extends AppCompatActivity implements View.OnCli
                                 GetServicesDataModel model = new GetServicesDataModel();
                                 GetServicesDataModel.Detail detail = new GetServicesDataModel.Detail();
 
+
                                 detail.setId(response.body().getDetails().get(i).getId());
                                 detail.setTitle(response.body().getDetails().get(i).getTitle());
+                                detail.setFrenchTitle(response.body().getDetails().get(i).getFrenchTitle());
                                 detail.setSubSubServices(response.body().getDetails().get(i).getSubSubServices());
 
                                 detaillist.add(detail);

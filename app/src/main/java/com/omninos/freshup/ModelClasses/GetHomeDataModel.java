@@ -48,6 +48,9 @@ public class GetHomeDataModel {
         @SerializedName("title")
         @Expose
         private String title;
+        @SerializedName("frenchTitle")
+        @Expose
+        private String frenchTitle;
         @SerializedName("image1")
         @Expose
         private String image1;
@@ -75,6 +78,14 @@ public class GetHomeDataModel {
 
         public void setTitle(String title) {
             this.title = title;
+        }
+
+        public String getFrenchTitle() {
+            return frenchTitle;
+        }
+
+        public void setFrenchTitle(String frenchTitle) {
+            this.frenchTitle = frenchTitle;
         }
 
         public String getImage1() {

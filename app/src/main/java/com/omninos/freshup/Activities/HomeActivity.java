@@ -1,5 +1,7 @@
 package com.omninos.freshup.Activities;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -15,6 +17,7 @@ import com.omninos.freshup.Fragment.MainAppointmentFragment;
 import com.omninos.freshup.Fragment.OrderHistoryFragment;
 import com.omninos.freshup.R;
 import com.omninos.freshup.Utils.App;
+import com.omninos.freshup.util.LocaleHelper;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -23,6 +26,10 @@ public class HomeActivity extends AppCompatActivity {
     private Menu menu;
     private HomeActivity activity;
 
+
+    Context context;
+    Resources resources;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,11 +37,17 @@ public class HomeActivity extends AppCompatActivity {
 
         activity = HomeActivity.this;
 
+
+        context = LocaleHelper.setLocale(HomeActivity.this, App.getAppPreferences().getLanguage(HomeActivity.this));
+        resources = context.getResources();
+
         initView();
+//        ChageLanguage();
         SetUps();
         SetUpHomeFragment();
 
 
+        //Set Click on navigation items
         bnve.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -46,6 +59,13 @@ public class HomeActivity extends AppCompatActivity {
                         menu.getItem(1).setIcon(R.drawable.ic_shopping_cart);
                         menu.getItem(2).setIcon(R.drawable.ic_order_history);
                         menu.getItem(3).setIcon(R.drawable.ic_appointment);
+                        menu.getItem(0).setTitle(resources.getString(R.string.home));
+
+                        menu.getItem(1).setTitle(resources.getString(R.string.cart));
+
+                        menu.getItem(2).setTitle(resources.getString(R.string.orders));
+
+                        menu.getItem(3).setTitle(resources.getString(R.string.appoint));
                         FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
                         transaction1.replace(R.id.container, new HomeFragment());
                         transaction1.commit();
@@ -57,6 +77,14 @@ public class HomeActivity extends AppCompatActivity {
                         menu.getItem(1).setIcon(R.drawable.select_cart);
                         menu.getItem(2).setIcon(R.drawable.ic_order_history);
                         menu.getItem(3).setIcon(R.drawable.ic_appointment);
+
+                        menu.getItem(0).setTitle(resources.getString(R.string.home));
+
+                        menu.getItem(1).setTitle(resources.getString(R.string.cart));
+
+                        menu.getItem(2).setTitle(resources.getString(R.string.orders));
+
+                        menu.getItem(3).setTitle(resources.getString(R.string.appoint));
                         FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
                         transaction2.replace(R.id.container, new AddToCartFragment());
                         transaction2.commit();
@@ -69,6 +97,14 @@ public class HomeActivity extends AppCompatActivity {
                         menu.getItem(1).setIcon(R.drawable.ic_shopping_cart);
                         menu.getItem(2).setIcon(R.drawable.selected_history);
                         menu.getItem(3).setIcon(R.drawable.ic_appointment);
+
+                        menu.getItem(0).setTitle(resources.getString(R.string.home));
+
+                        menu.getItem(1).setTitle(resources.getString(R.string.cart));
+
+                        menu.getItem(2).setTitle(resources.getString(R.string.orders));
+
+                        menu.getItem(3).setTitle(resources.getString(R.string.appoint));
                         FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
                         transaction3.replace(R.id.container, new OrderHistoryFragment());
                         transaction3.commit();
@@ -80,6 +116,14 @@ public class HomeActivity extends AppCompatActivity {
                         menu.getItem(1).setIcon(R.drawable.ic_shopping_cart);
                         menu.getItem(2).setIcon(R.drawable.ic_order_history);
                         menu.getItem(3).setIcon(R.drawable.selected_appointment);
+
+                        menu.getItem(0).setTitle(resources.getString(R.string.home));
+
+                        menu.getItem(1).setTitle(resources.getString(R.string.cart));
+
+                        menu.getItem(2).setTitle(resources.getString(R.string.orders));
+
+                        menu.getItem(3).setTitle(resources.getString(R.string.appoint));
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.container, new MainAppointmentFragment());
                         transaction.commit();
@@ -91,6 +135,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
     }
+
 
 //    private void OpenDialog() {
 //        LayoutInflater layoutInflater = getLayoutInflater();
@@ -122,6 +167,7 @@ public class HomeActivity extends AppCompatActivity {
 //        alertDialog.show();
 //    }
 
+    //Set First Fragment
     private void SetUpHomeFragment() {
 
         bnve.setIconTintList(0, null);
@@ -129,6 +175,7 @@ public class HomeActivity extends AppCompatActivity {
         bnve.setIconTintList(2, null);
         bnve.setIconTintList(3, null);
 
+        //if come from add to cart item
         if (App.getAppPreferences().getSetcart() != null) {
             App.getAppPreferences().setSetcart(null);
             bnve.setIconTintList(1, null);
@@ -136,11 +183,27 @@ public class HomeActivity extends AppCompatActivity {
             menu.getItem(1).setIcon(R.drawable.select_cart);
             menu.getItem(2).setIcon(R.drawable.unselected_profile);
             menu.getItem(3).setIcon(R.drawable.ic_appointment);
+
+            menu.getItem(0).setTitle(resources.getString(R.string.home));
+
+            menu.getItem(1).setTitle(resources.getString(R.string.cart));
+
+            menu.getItem(2).setTitle(resources.getString(R.string.orders));
+
+            menu.getItem(3).setTitle(resources.getString(R.string.appoint));
             FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
             transaction1.replace(R.id.container, new AddToCartFragment());
             transaction1.commit();
         } else {
             menu.getItem(0).setIcon(R.drawable.ic_select_scissors);
+
+            menu.getItem(0).setTitle(resources.getString(R.string.home));
+
+            menu.getItem(1).setTitle(resources.getString(R.string.cart));
+
+            menu.getItem(2).setTitle(resources.getString(R.string.orders));
+
+            menu.getItem(3).setTitle(resources.getString(R.string.appoint));
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.container, new HomeFragment());
             transaction.commit();
@@ -154,6 +217,7 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    //Set Navigation icon or text
     private void SetUps() {
 
         bnve.enableAnimation(false);

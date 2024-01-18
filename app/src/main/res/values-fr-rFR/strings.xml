@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Freshup</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_in" translatable="false">se connecter</string>
+    <string name="password">Mot de passe</string>
+    <string name="forgot_password">mot de passe oublié?</string>
+    <string name="or_login_with">ou connectez-vous avec</string>
+    <string name="facebook">Facebook</string>
+    <string name="don_t_have_an_account">j\'ai pas de compte</string>
+    <string name="sign_up">S\'inscrire</string>
+
+
+    <string name="user_name">Nom d\'utilisateur</string>
+    <string name="name">prénom</string>
+    <string name="info_omninos_com">info@omninos.com</string>
+    <string name="mobile_no">Numéro de mobile</string>
+    <string name="confirm_password">Confirmez le mot de passe</string>
+    <string name="you_have_an_account">vous avez un compte?</string>
+
+
+    <string name="enter_your_verification_code">Entrez votre code de vérification</string>
+    <string name="verify_code">Vérifier le code</string>
+    <string name="resend_verification_code">Renvoyer le code de vérification</string>
+
+
+    <string name="your_mobile_number_successfully_verified">Votre numéro de mobile vérifié avec succès.</string>
+    <string name="done">Terminé</string>
+
+
+    <string name="home">Acceuil</string>
+    <string name="cart">Panier</string>
+    <string name="orders">commandes</string>
+    <string name="appoint">vos Rdv</string>
+
+
+    <string name="services">Prestations de service</string>
+    <string name="products">produit</string>
+
+    <string name="join_queue">Faire la Queue</string>
+
+
+    <string name="phone_number">Numéro de téléphone</string>
+    <string name="log_out">Déconnexion</string>
+    <string name="profile">Profil</string>
+
+
+    <string name="change_password">Changer le mot de passe</string>
+    <string name="faq">FAQ</string>
+    <string name="terms_and_conditions">Termes et conditions</string>
+    <string name="settings">Réglages</string>
+
+
+    <string name="change_language">Changer de langue</string>
+
+
+    <string name="delivery_address">Adresse de livraison</string>
+    <string name="country">Pays</string>
+    <string name="state">Etat</string>
+    <string name="city">Ville</string>
+    <string name="address">Adresse</string>
+    <string name="zip_code">Code postal</string>
+    <string name="proceed">Procéder</string>
+
+    <string name="forgot_password_text">mot de passe oublié</string>
+
+    <string name="send_my_password">envoyer mon mot de passe</string>
+    <string name="email">Email</string>
+
+
+    <string name="enter_your_mobile_number">Entrez votre numéro de mobile</string>
+    <string name="verification">Vérification</string>
+
+    <string name="continue_move">Continuer</string>
+
+
+    <string name="barber_name">coiffeur prénom</string>
+    <string name="appointment_date">Date de rendez-vous</string>
+    <string name="time_slot">Créneau Horaire</string>
+    <string name="price">Prix</string>
+    <string name="pay">Payer</string>
+    <string name="payment">Paiement</string>
+    <string name="stripe">Stripe</string>
+    <string name="paypal">Paypal</string>
+    <string name="cash">Cash</string>
+
+
+    <string name="surname">Nom de famille</string>
+    <string name="card_number">Numéro de carte</string>
+    <string name="expiry_date">Date d\'expiration</string>
+    <string name="cvv">CVV</string>
+    <string name="verify">Vérifier</string>
+
+
+    <string name="promo_code">Code promo</string>
+    <string name="enter_your_promo_code">Entrez votre code promo</string>
+    <string name="promo">Promo</string>
+    <string name="apply">Appliquer</string>
+    <string name="pick_from_shop">Choisir dans la boutique</string>
+    <string name="home_delivery">Livraison à domicile</string>
+
+
+    <string name="select_the_date">Sélectionnez la date</string>
+    <string name="holiday">Fermé</string>
+    <string name="pick_a_time_slot">Choisissez un créneau horaire</string>
+    <string name="shop_close">Boutique fermé</string>
+    <string name="cancel">Annuler</string>
+
+
+    <string name="empty_cart">Panier vide</string>
+    <string name="total_price">Prix ​​total</string>
+    <string name="buy">Acheter</string>
+
+
+    <string name="order_history">Historique des commandes</string>
+    <string name="no_items">Pas d\'objet</string>
+
+
+    <string name="appointments">Rendez-vous</string>
+
+
+    <string name="no_appointment">Pas de rendez-vous</string>
+    <string name="no_past_appointment">Aucun rendez-vous passé</string>
+    <string name="no_upcoming_appointment">Aucun rendez-vous à venir</string>
+
+    <string name="in_queue">dans la file</string>
+    <string name="see_queue">voir la file</string>
+
+    <string name="add_to_cart">Ajouter au panier</string>
+
+
+
+</resources>

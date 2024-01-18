@@ -63,7 +63,8 @@ public class BarbarDetailAdapter extends RecyclerView.Adapter<BarbarDetailAdapte
         if (timeSlots != null) {
             timeSlots.clear();
         }
-        displayTimeSlots(list.get(i).getDetails().getTimeSlotDetails().getStartTime(), list.get(i).getDetails().getTimeSlotDetails().getEndTime(), list.get(i).getDetails().getTimeSlotDetails().getSlotTime());
+        displayTimeSlots(list.get(i).getDetails().getTimeSlotDetails().getFirstShiftStartTime(), list.get(i).getDetails().getTimeSlotDetails().getFirstShiftEndTime(), list.get(i).getDetails().getTimeSlotDetails().getSlotTime());
+        displayTimeSlots(list.get(i).getDetails().getTimeSlotDetails().getSecondShifStartTime(), list.get(i).getDetails().getTimeSlotDetails().getSecondShifEndTime(), list.get(i).getDetails().getTimeSlotDetails().getSlotTime());
 
         myViewHolder.firstRecycler.setLayoutManager(new GridLayoutManager(context, 5));
 
@@ -135,17 +136,17 @@ public class BarbarDetailAdapter extends RecyclerView.Adapter<BarbarDetailAdapte
         hours1 = String.valueOf(Integer.parseInt(hours1));
 
 
-        if (Integer.parseInt(minutes) > 30) {
-            minutes = "00";
-        } else {
-            minutes = "30";
-        }
-
-        if (Integer.parseInt(minutes1) > 30) {
-            minutes1 = "00";
-        } else {
-            minutes1 = "30";
-        }
+//        if (Integer.parseInt(minutes) > 30) {
+//            minutes = "00";
+//        } else {
+//            minutes = "30";
+//        }
+//
+//        if (Integer.parseInt(minutes1) > 30) {
+//            minutes1 = "00";
+//        } else {
+//            minutes1 = "30";
+//        }
 
 //        String amOrPm;
 
@@ -233,7 +234,7 @@ public class BarbarDetailAdapter extends RecyclerView.Adapter<BarbarDetailAdapte
                             App.getAppPreferences().setTimeSlote(null);
                             barbarVisibiliry.add(list.get(getLayoutPosition()).getDetails().getBarberDeatils().get(getLayoutPosition()).getId());
 
-                        }else {
+                        } else {
                             Toast.makeText(context, "close previously once", Toast.LENGTH_SHORT).show();
                         }
                     } else {

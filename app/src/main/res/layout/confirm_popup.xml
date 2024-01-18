@@ -18,12 +18,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/textService"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/check"
                 android:layout_marginStart="@dimen/dp_30"
                 android:layout_marginTop="@dimen/dp_20"
-                android:text="Services"
+                android:text="@string/services"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
@@ -38,12 +39,13 @@
                 android:textColor="@color/black" />
 
             <TextView
+                android:id="@+id/textBarberName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/check"
                 android:layout_marginStart="@dimen/dp_30"
                 android:layout_marginTop="@dimen/dp_20"
-                android:text="Barber"
+                android:text="@string/barber_name"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
@@ -59,12 +61,13 @@
                 android:textColor="@color/black" />
 
             <TextView
+                android:id="@+id/textAppointmentDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/check"
                 android:layout_marginStart="@dimen/dp_30"
                 android:layout_marginTop="@dimen/dp_20"
-                android:text="Appointment Date"
+                android:text="@string/appointment_date"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
@@ -80,12 +83,13 @@
                 android:textColor="@color/black" />
 
             <TextView
+                android:id="@+id/textSlote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/check"
                 android:layout_marginStart="@dimen/dp_30"
                 android:layout_marginTop="@dimen/dp_20"
-                android:text="Time Slot"
+                android:text="@string/time_slot"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
@@ -116,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/rectangle_button"
-                    android:text="Cancel"
+                    android:text="@string/cancel"
                     android:layout_marginEnd="@dimen/dp_5"
                     android:textColor="@color/white" />
 
@@ -127,7 +131,7 @@
                     android:layout_weight="1"
                     android:layout_marginStart="@dimen/dp_5"
                     android:background="@drawable/rectangle_button"
-                    android:text="Done"
+                    android:text="@string/done"
                     android:textColor="@color/white" />
             </LinearLayout>
 

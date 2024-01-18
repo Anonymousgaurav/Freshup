@@ -1,6 +1,8 @@
 package com.omninos.freshup.Fragment;
 
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +20,7 @@ import com.omninos.freshup.Retrofit.Api;
 import com.omninos.freshup.Retrofit.ApiClient;
 import com.omninos.freshup.Utils.App;
 import com.omninos.freshup.Utils.CommonUtils;
+import com.omninos.freshup.util.LocaleHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +40,10 @@ public class OrderHistoryFragment extends Fragment implements View.OnClickListen
     private OrderHistoryAdapter adapter;
     private List<OrderHistoryModel> list = new ArrayList<>();
     private List<OrderHistoryModel.Detail> details = new ArrayList<>();
+    private TextView item_text;
+
+    Context context;
+    Resources resources;
 
     public OrderHistoryFragment() {
         // Required empty public constructor
@@ -49,8 +56,18 @@ public class OrderHistoryFragment extends Fragment implements View.OnClickListen
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_order_history, container, false);
+
+        context = LocaleHelper.setLocale(getActivity(), App.getAppPreferences().getLanguage(getActivity()));
+        resources = context.getResources();
+
+
         recyclerView = view.findViewById(R.id.recyclerView);
         noData = view.findViewById(R.id.noData);
+
+        item_text = view.findViewById(R.id.item_text);
+        item_text.setText(resources.getString(R.string.order_history));
+        noData.setText(resources.getString(R.string.no_items));
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -106,7 +123,9 @@ public class OrderHistoryFragment extends Fragment implements View.OnClickListen
                 @Override
                 public void onFailure(Call<OrderHistoryModel> call, Throwable t) {
                     CommonUtils.dismissProgress();
-                    Toast.makeText(getActivity(), t.toString(), Toast.LENGTH_SHORT).show();
+                    noData.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+//                    Toast.makeText(getActivity(), t.toString(), Toast.LENGTH_SHORT).show();
                 }
             });
 

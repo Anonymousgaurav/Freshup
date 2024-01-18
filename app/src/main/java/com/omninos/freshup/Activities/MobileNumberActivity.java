@@ -1,11 +1,14 @@
 package com.omninos.freshup.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -17,6 +20,7 @@ import com.omninos.freshup.Retrofit.Api;
 import com.omninos.freshup.Retrofit.ApiClient;
 import com.omninos.freshup.Utils.App;
 import com.omninos.freshup.Utils.CommonUtils;
+import com.omninos.freshup.util.LocaleHelper;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,11 +31,17 @@ public class MobileNumberActivity extends AppCompatActivity implements View.OnCl
 
     private EditText number;
     private Button next;
-    private String mobileNo,reg_id;
+    private String mobileNo, reg_id;
     private MobileNumberActivity activity;
 
     private CountryCodePicker countryCodePicker;
-    private String countryCode,name,email,image,SocailId;
+    private String countryCode, name, email, image, SocailId;
+
+    private TextView varifyText, demotext;
+
+
+    Context context;
+    Resources resources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,18 +49,28 @@ public class MobileNumberActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_mobile_number);
 
         activity = MobileNumberActivity.this;
+        context = LocaleHelper.setLocale(MobileNumberActivity.this, App.getAppPreferences().getLanguage(MobileNumberActivity.this));
+        resources = context.getResources();
+
 
         intView();
+        changelanguage();
         SetUps();
 
     }
 
+    private void changelanguage() {
+        varifyText.setText(resources.getString(R.string.verification));
+        demotext.setText(resources.getString(R.string.enter_your_mobile_number));
+        next.setText(resources.getString(R.string.bt_next));
+    }
+
     private void intView() {
 
-        name=getIntent().getStringExtra("name");
-        email=getIntent().getStringExtra("email");
-        image=getIntent().getStringExtra("image");
-        SocailId=getIntent().getStringExtra("SocailId");
+        name = getIntent().getStringExtra("name");
+        email = getIntent().getStringExtra("email");
+        image = getIntent().getStringExtra("image");
+        SocailId = getIntent().getStringExtra("SocailId");
 
 //        if (App.getAppPreferences().getInstaId()!=null){
 //            SocailId=App.getAppPreferences().getInstaId();
@@ -63,6 +83,8 @@ public class MobileNumberActivity extends AppCompatActivity implements View.OnCl
         next = findViewById(R.id.next);
         countryCodePicker = findViewById(R.id.ccp);
         countryCode = countryCodePicker.getSelectedCountryCodeWithPlus();
+        varifyText = findViewById(R.id.varifyText);
+        demotext = findViewById(R.id.demotext);
 
     }
 
@@ -88,7 +110,7 @@ public class MobileNumberActivity extends AppCompatActivity implements View.OnCl
         countryCodePicker.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
             @Override
             public void onCountrySelected() {
-                countryCode=countryCodePicker.getSelectedCountryCodeWithPlus();
+                countryCode = countryCodePicker.getSelectedCountryCodeWithPlus();
 
             }
         });
@@ -96,7 +118,7 @@ public class MobileNumberActivity extends AppCompatActivity implements View.OnCl
 
     private void CheckNumber() {
         mobileNo = number.getText().toString().trim();
-        if (mobileNo.isEmpty() || mobileNo.length()!=10) {
+        if (mobileNo.isEmpty() || mobileNo.length() != 10) {
             number.setError("enter valid number length");
         } else {
             UserRegister();
@@ -107,22 +129,22 @@ public class MobileNumberActivity extends AppCompatActivity implements View.OnCl
 
         reg_id = FirebaseInstanceId.getInstance().getToken();
 
-        if (CommonUtils.isNetworkConnected(activity)){
-            CommonUtils.showProgress(activity,"");
+        if (CommonUtils.isNetworkConnected(activity)) {
+            CommonUtils.showProgress(activity, "");
 
-            Api api=ApiClient.getApiClient().create(Api.class);
-            api.SocialLogin(name,email,image,mobileNo,SocailId,"Android",reg_id,"Social Login").enqueue(new Callback<SocialLoginModel>() {
+            Api api = ApiClient.getApiClient().create(Api.class);
+            api.SocialLogin(name, email, image, mobileNo, SocailId, "Android", reg_id, "Social Login").enqueue(new Callback<SocialLoginModel>() {
                 @Override
                 public void onResponse(Call<SocialLoginModel> call, Response<SocialLoginModel> response) {
                     CommonUtils.dismissProgress();
-                    if (response.body()!=null){
-                        if (response.body().getSuccess().equalsIgnoreCase("1")){
+                    if (response.body() != null) {
+                        if (response.body().getSuccess().equalsIgnoreCase("1")) {
                             App.getAppPreferences().saveUserId(activity, response.body().getDetails().getId());
-                            App.getAppPreferences().saveUserIdTemp(activity,"1");
+                            App.getAppPreferences().saveUserIdTemp(activity, "1");
                             App.getAppPreferences().setOTP(response.body().getDetails().getOtp().toString());
                             Toast.makeText(activity, response.body().getDetails().getOtp() + "", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(activity, VarificationActivity.class));
-                        }else {
+                        } else {
                             Toast.makeText(activity, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -135,7 +157,7 @@ public class MobileNumberActivity extends AppCompatActivity implements View.OnCl
             });
 
 
-        }else {
+        } else {
             Toast.makeText(activity, "Network Issue", Toast.LENGTH_SHORT).show();
         }
     }

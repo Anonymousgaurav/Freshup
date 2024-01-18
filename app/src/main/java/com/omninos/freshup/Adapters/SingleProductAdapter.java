@@ -1,6 +1,8 @@
 package com.omninos.freshup.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.omninos.freshup.ModelClasses.SingleProductCategoryModel;
 import com.omninos.freshup.R;
 import com.omninos.freshup.Utils.App;
+import com.omninos.freshup.util.LocaleHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +31,8 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
     Context context;
     List<SingleProductCategoryModel.Product> list;
     PayPayment payPayment;
-
+    Activity activity;
+    Resources resources;
 
     public interface PayPayment {
         public void Payment(int position, String status);
@@ -36,8 +40,8 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
         void OpenDetail(int position);
     }
 
-    public SingleProductAdapter(Context context, List<SingleProductCategoryModel.Product> list, PayPayment payPayment) {
-        this.context = context;
+    public SingleProductAdapter(Activity context, List<SingleProductCategoryModel.Product> list, PayPayment payPayment) {
+        this.activity = context;
         this.list = list;
         this.payPayment = payPayment;
     }
@@ -51,13 +55,23 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
+
+        context = LocaleHelper.setLocale(activity, App.getAppPreferences().getLanguage(activity));
+        resources = context.getResources();
+
+        myViewHolder.buyButton.setText(resources.getString(R.string.add_to_cart));
+
         myViewHolder.productName.setText(list.get(i).getTitle());
         myViewHolder.productPrice.setText("€" + list.get(i).getPrice());
         myViewHolder.productServices.setText(list.get(i).getDescription());
         List<String> items = Arrays.asList(list.get(i).getProductImage().split(","));
         Glide.with(context).load(items.get(0)).into(myViewHolder.productImage);
         if (list.get(i).getAddToCartStatus().equalsIgnoreCase("1")) {
-            myViewHolder.buyButton.setText("Go to Cart");
+            if (App.getAppPreferences().getLanguage(activity).equalsIgnoreCase("fr")) {
+                myViewHolder.buyButton.setText("Aller au panier");
+            } else {
+                myViewHolder.buyButton.setText("Go to Cart");
+            }
         }
 
         myViewHolder.productImage.setOnClickListener(new View.OnClickListener() {
@@ -69,11 +83,20 @@ public class SingleProductAdapter extends RecyclerView.Adapter<SingleProductAdap
         myViewHolder.buyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (myViewHolder.buyButton.getText().equals("Go to Cart")) {
-                    payPayment.Payment(i, "Move");
+                if (App.getAppPreferences().getLanguage(activity).equalsIgnoreCase("fr")) {
+                    if (myViewHolder.buyButton.getText().equals("Aller au panier")) {
+                        payPayment.Payment(i, "Move");
+                    } else {
+                        payPayment.Payment(i, "Add");
+                    }
                 } else {
-                    payPayment.Payment(i, "Add");
+                    if (myViewHolder.buyButton.getText().equals("Go to Cart")) {
+                        payPayment.Payment(i, "Move");
+                    } else {
+                        payPayment.Payment(i, "Add");
+                    }
                 }
+
             }
         });
     }

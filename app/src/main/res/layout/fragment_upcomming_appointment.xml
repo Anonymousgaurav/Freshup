@@ -5,11 +5,23 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.UpcommingAppointmentFragment">
     <android.support.v7.widget.RecyclerView
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_margin="@dimen/dp_8"
         android:id="@+id/appointmentlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </android.support.v7.widget.RecyclerView>
 
+
+    <TextView
+        android:visibility="visible"
+        android:id="@+id/noAppointment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="@string/no_upcoming_appointment"
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/dp_30"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
 </RelativeLayout>

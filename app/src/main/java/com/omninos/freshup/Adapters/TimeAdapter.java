@@ -16,8 +16,12 @@ import com.omninos.freshup.ModelClasses.BarbarDetailsModel;
 import com.omninos.freshup.R;
 import com.omninos.freshup.Utils.App;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.MyViewHolder> {
@@ -28,6 +32,11 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.MyViewHolder> 
     List<BarbarDetailsModel.BookingTime> bookingTimeList;
     List<String> getTimeBooking = new ArrayList<>();
     StringBuilder stringBuilder;
+
+
+    String currentDate, currentTime;
+    DateFormat dateFormat, timeFormat;
+
 
     public interface ChooseTime {
         public void selectTime(int position);
@@ -50,11 +59,38 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.MyViewHolder> 
     @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
+
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        timeFormat = new SimpleDateFormat("HH:mm");
+        final Date date = new Date();
+        currentDate = dateFormat.format(date);
+        currentTime = timeFormat.format(date);
+
+
         myViewHolder.timesData.setText(list.get(i));
 
 
-        for (int j = 0; j < bookingTimeList.size(); j++) {
+        try {
+            Date appointMentTime = timeFormat.parse(list.get(i));
+            Date timeData = timeFormat.parse(currentTime);
 
+            Date appointMentDate = dateFormat.parse(App.getAppPreferences().selecteAppointmentDate);
+            Date Current = dateFormat.parse(currentDate);
+            if (appointMentDate.getTime() == Current.getTime()) {
+                if (timeData.getTime() > appointMentTime.getTime()) {
+                    System.out.println("Past" + list.get(i));
+                    myViewHolder.layoutSelect.setBackgroundColor(Color.parseColor("#000000"));
+                    myViewHolder.timesData.setTextColor(Color.parseColor("#ffffff"));
+                    myViewHolder.timesData.setClickable(false);
+                } else {
+                    System.out.println("Upcomming" + list.get(i));
+                }
+            } else {
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        for (int j = 0; j < bookingTimeList.size(); j++) {
             List<String> elephantList = Arrays.asList(bookingTimeList.get(j).getTimeslot().split(","));
             for (String e : elephantList) {
                 System.out.println("Times: " + e);
@@ -62,13 +98,9 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.MyViewHolder> 
                     myViewHolder.layoutSelect.setBackgroundColor(Color.parseColor("#ed0d0d"));
                     myViewHolder.timesData.setClickable(false);
                 } else {
-
                 }
             }
-
-
         }
-
     }
 
     @Override
@@ -107,11 +139,29 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.MyViewHolder> 
 //                        layoutSelect.setBackgroundColor(Color.parseColor("#f2efef"));
 //                    }
 //                    chooseTime.selectTime(getLayoutPosition());
+
+//                    String pattern = "HH:mm";
+//                    SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+//
+//                    try {
+//                        Date date1 = sdf.parse(time);
+//                        Date date2 = sdf.parse(endtime);
+//
+//                        if(date1.before(date2)) {
+//
+//                        } else {
+//
+//                        }
+//                    } catch (ParseException e){
+//                        e.printStackTrace();
+//                    }
+
+
                     if (!setUpTimenew.contains(list.get(getLayoutPosition()))) {
-                        if (setUpTimenew.size()<2) {
+                        if (setUpTimenew.size() < 2) {
                             setUpTimenew.add(list.get(getLayoutPosition()));
                             layoutSelect.setBackgroundColor(Color.parseColor("#47ec10"));
-                        }else {
+                        } else {
                             Toast.makeText(context, "You can choose maximum 2 slot", Toast.LENGTH_SHORT).show();
                         }
                     } else {

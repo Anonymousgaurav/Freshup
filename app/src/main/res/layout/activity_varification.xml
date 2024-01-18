@@ -56,6 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <TextView
+
             android:layout_marginBottom="@dimen/dp_20"
             android:layout_centerHorizontal="true"
             android:id="@+id/varifyText"
@@ -63,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_14"
             android:padding="@dimen/dp_2"
-            android:text="Verification"
+            android:text="@string/verification"
             android:textAllCaps="true"
             android:textColor="@color/light_yellow"
             android:textSize="@dimen/sp_18"
@@ -79,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_2"
                 android:padding="@dimen/dp_4"
-                android:text="Enter your verification code"
+                android:text="@string/enter_your_verification_code"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp_14" />
 
@@ -152,7 +153,7 @@
                 android:layout_marginTop="@dimen/dp_20"
                 android:layout_marginStart="@dimen/dp_32"
                 android:layout_marginEnd="@dimen/dp_32"
-                android:text="Verify Code"
+                android:text="@string/verify_code"
                 android:textColor="@color/white"
                 android:background="@drawable/button_background"
                 android:layout_width="match_parent"
@@ -167,7 +168,7 @@
                 android:layout_below="@id/varify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Resend Verification Code"/>
+                android:text="@string/resend_verification_code"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

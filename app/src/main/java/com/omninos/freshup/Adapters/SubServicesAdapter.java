@@ -1,5 +1,6 @@
 package com.omninos.freshup.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class SubServicesAdapter extends RecyclerView.Adapter<SubServicesAdapter.MyViewHolder> {
 
-    Context context;
+    Activity context;
     List<GetServicesDataModel> list;
     MoveNext moveNext;
     List<String> listdata = new ArrayList<>();
@@ -31,7 +32,7 @@ public class SubServicesAdapter extends RecyclerView.Adapter<SubServicesAdapter.
         public void NextClick(int position);
     }
 
-    public SubServicesAdapter(Context context, List<GetServicesDataModel> list, MoveNext moveNext) {
+    public SubServicesAdapter(Activity context, List<GetServicesDataModel> list, MoveNext moveNext) {
         this.context = context;
         this.list = list;
         this.moveNext = moveNext;
@@ -46,7 +47,11 @@ public class SubServicesAdapter extends RecyclerView.Adapter<SubServicesAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
-        myViewHolder.textSubService.setText(list.get(i).getDetails().get(i).getTitle());
+        if (App.getAppPreferences().getLanguage(context).equalsIgnoreCase("fr")) {
+            myViewHolder.textSubService.setText(list.get(i).getDetails().get(i).getFrenchTitle());
+        } else {
+            myViewHolder.textSubService.setText(list.get(i).getDetails().get(i).getTitle());
+        }
         myViewHolder.subsubItems.setHasFixedSize(true);
 
         //toolbar.setTitle("Shop");

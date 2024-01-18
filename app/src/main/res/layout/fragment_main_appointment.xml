@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/product_item"
         android:layout_centerHorizontal="true"
-        android:text="Appointments"
+        android:text="@string/appointments"
         android:layout_marginBottom="@dimen/dp_4"
         android:textAllCaps="true"
         android:textColor="@color/white" />

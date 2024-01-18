@@ -37,6 +37,16 @@
             </intent-filter>
         </service>
 
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -96,7 +106,22 @@
         <activity android:name=".Activities.ShubhamSir" />
         <activity android:name=".Activities.DeliveryActivity" />
         <activity android:name=".Activities.NotificationActivity" />
-        <activity android:name=".Activities.ProfileActivity"></activity>
+        <activity android:name=".Activities.ProfileActivity" />
+
+        <!-- braintree browser -->
+        <activity
+            android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="${applicationId}.braintree" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activities.ChooseLanguageActivity"></activity>
     </application>
 
 </manifest>

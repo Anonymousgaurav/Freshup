@@ -1,7 +1,10 @@
 package com.omninos.freshup.Activities;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
@@ -27,6 +30,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.omninos.freshup.ModelClasses.GetProfilePojo;
+import com.omninos.freshup.ModelClasses.SocialLoginModelClass;
 import com.omninos.freshup.R;
 import com.omninos.freshup.Retrofit.Api;
 import com.omninos.freshup.Retrofit.ApiClient;
@@ -34,12 +38,15 @@ import com.omninos.freshup.Utils.App;
 import com.omninos.freshup.Utils.CommonUtils;
 import com.omninos.freshup.util.Constants;
 import com.omninos.freshup.util.InstagramApp;
+import com.omninos.freshup.util.LocaleHelper;
 
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,10 +57,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     CallbackManager callbackManager;
     private LinearLayout moveToSignUp;
     private EditText Useremail, password;
-    private Button singIn, fb_signIn,InstaLogin;
+    private Button singIn, fb_signIn, InstaLogin;
     private String Email, Pass, reg_id;
     private LoginActivity activity;
-    private TextView forgotPass;
+    private TextView forgotPass, sinText, textEmail, textPassword, second, donthave, signUptext;
     private String userIdfacebook, firstName, lastName, email, socialUsersername, SocialImage = "";
     private URL profilePicture;
 
@@ -61,7 +68,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private InstagramApp mApp;
 
+    Context context;
+    Resources resources;
 
+
+    //Instagram Login
     private HashMap<String, String> userInfoHashmap = new HashMap<String, String>();
     private Handler handler = new Handler(new Handler.Callback() {
 
@@ -77,7 +88,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     });
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,11 +96,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         activity = LoginActivity.this;
 
 
+        context = LocaleHelper.setLocale(LoginActivity.this, App.getAppPreferences().getLanguage(LoginActivity.this));
+        resources = context.getResources();
+
+
         initView();
+        ChangeLanguage();
+
         InitFacebook();
         SetUp();
 
 
+        //Instagram Login
         mApp = new InstagramApp(this, Constants.CLIENT_ID,
                 Constants.CLIENT_SECRET, Constants.CALLBACK_URL);
         mApp.setListener(new InstagramApp.OAuthAuthenticationListener() {
@@ -100,7 +117,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 mApp.fetchUserName(handler);
 
-                App.getAppPreferences().SaveSocailType(activity,"Insta");
+                //Save instagram data
+                App.getAppPreferences().SaveSocailType(activity, "Insta");
                 Intent intent = new Intent(activity, MobileNumberActivity.class);
                 intent.putExtra("name", App.getAppPreferences().getInstaUserName());
                 intent.putExtra("SocailId", App.getAppPreferences().getInstaId());
@@ -126,12 +144,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    private void ChangeLanguage() {
+
+
+        password.setHint(resources.getString(R.string.password));
+        sinText.setText(resources.getString(R.string.sign_in));
+        textEmail.setText(resources.getString(R.string.email));
+        Useremail.setHint(resources.getString(R.string.email));
+        textEmail.setText(resources.getString(R.string.email));
+        textPassword.setText(resources.getString(R.string.password));
+        forgotPass.setText(resources.getString(R.string.forgot_password));
+        singIn.setText(resources.getString(R.string.sign_in));
+        second.setText(resources.getString(R.string.or_login_with));
+        donthave.setText(resources.getString(R.string.don_t_have_an_account));
+        signUptext.setText(resources.getString(R.string.sign_up));
+
+    }
+
+    //facebook Login
     private void InitFacebook() {
         callbackManager = CallbackManager.Factory.create();
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
     }
 
+    //find all Id's
     private void initView() {
         moveToSignUp = findViewById(R.id.moveToSignUp);
         Useremail = findViewById(R.id.email);
@@ -139,44 +176,62 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         singIn = findViewById(R.id.signIn);
         forgotPass = findViewById(R.id.forgotPass);
         fb_signIn = findViewById(R.id.fb_signIn);
-        InstaLogin=findViewById(R.id.InstaLogin);
+        InstaLogin = findViewById(R.id.InstaLogin);
+
+
+        sinText = findViewById(R.id.sinText);
+        textEmail = findViewById(R.id.textEmail);
+        textPassword = findViewById(R.id.textPassword);
+        second = findViewById(R.id.second);
+        donthave = findViewById(R.id.donthave);
+        signUptext = findViewById(R.id.signUptext);
+
 
     }
 
+    //Setup Actions
     private void SetUp() {
         moveToSignUp.setOnClickListener(this);
         singIn.setOnClickListener(this);
         forgotPass.setOnClickListener(this);
         fb_signIn.setOnClickListener(this);
         InstaLogin.setOnClickListener(this);
+
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.moveToSignUp:
+                //Move to Register activity
                 startActivity(new Intent(this, RegisterActivity.class));
                 finish();
                 break;
 
             case R.id.signIn:
+                //Check Validations
                 Validate();
                 break;
 
             case R.id.forgotPass:
+                //Move to forgot screen
                 startActivity(new Intent(this, ForgotPasswordActivity.class));
-                finish();
+
                 break;
 
             case R.id.fb_signIn:
+                //FB Login
                 LoginWithFaceBook();
                 break;
             case R.id.InstaLogin:
+                //Instagram Login
                 LoginInsta();
                 break;
         }
     }
 
+    //Instagram Login
     private void LoginInsta() {
 //        if (mApp.hasAccessToken()) {
 //            final AlertDialog.Builder builder = new AlertDialog.Builder(
@@ -200,10 +255,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //            final AlertDialog alert = builder.create();
 //            alert.show();
 //        } else {
-            mApp.authorize();
+        mApp.authorize();
 //        }
     }
 
+    //get facebook Data
     private void LoginWithFaceBook() {
 
         if (CommonUtils.isNetworkConnected(activity)) {
@@ -236,6 +292,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    //Get facebook Data
     private void getFacebookData(LoginResult loginResult) {
 
         GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
@@ -284,13 +341,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             LogOut();
                         } else {
                             SocialImage = String.valueOf(profilePicture);
-                            App.getAppPreferences().SaveSocailType(activity,"FB");
-                            Intent intent = new Intent(activity, MobileNumberActivity.class);
-                            intent.putExtra("name", socialUsersername);
-                            intent.putExtra("SocailId", userIdfacebook);
-                            intent.putExtra("email", email);
-                            intent.putExtra("image", SocialImage);
-                            startActivity(intent);
+                            App.getAppPreferences().SaveSocailType(activity, "FB");
+                            CheckSocialId();
+//                            Intent intent = new Intent(activity, MobileNumberActivity.class);
+//                            intent.putExtra("name", socialUsersername);
+//                            intent.putExtra("SocailId", userIdfacebook);
+//                            intent.putExtra("email", email);
+//                            intent.putExtra("image", SocialImage);
+//                            startActivity(intent);
                         }
 
                     } catch (Exception e) {
@@ -301,6 +359,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
+        //Set Permissions
         Bundle bundle = new Bundle();
         Log.e("LoginActivity", "bundle set");
         bundle.putString("fields", "id, first_name, last_name,email,picture,gender");
@@ -308,11 +367,56 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         graphRequest.executeAsync();
     }
 
+    //Check user already register with Social media or not
+    private void CheckSocialId() {
+        if (CommonUtils.isNetworkConnected(activity)) {
+
+            Api api = ApiClient.getApiClient().create(Api.class);
+
+            CommonUtils.showProgress(activity, "");
+
+            api.CheckSocialId(userIdfacebook).enqueue(new Callback<SocialLoginModelClass>() {
+                @Override
+                public void onResponse(Call<SocialLoginModelClass> call, Response<SocialLoginModelClass> response) {
+                    CommonUtils.dismissProgress();
+                    if (response.body() != null) {
+                        if (response.body().getSuccess().equalsIgnoreCase("1")) {
+                            App.getAppPreferences().saveToken(activity);
+                            App.getAppPreferences().saveUserId(activity, response.body().getDetails().getId());
+                            startActivity(new Intent(activity, HomeActivity.class));
+                            finishAffinity();
+                        } else {
+                            Intent intent = new Intent(activity, MobileNumberActivity.class);
+                            intent.putExtra("name", socialUsersername);
+                            intent.putExtra("SocailId", userIdfacebook);
+                            intent.putExtra("email", email);
+                            intent.putExtra("image", SocialImage);
+                            startActivity(intent);
+                        }
+                    } else {
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<SocialLoginModelClass> call, Throwable t) {
+                    CommonUtils.dismissProgress();
+                    Toast.makeText(activity, t.toString(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } else {
+            Toast.makeText(activity, "Network Issue", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //Facebook Logout
     private void LogOut() {
         LoginManager.getInstance().logOut();
     }
 
 
+    //Check validations
     private void Validate() {
         Email = Useremail.getText().toString().trim();
         Pass = password.getText().toString();
@@ -326,6 +430,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    //Userlogin
     private void UserLogin() {
 
         reg_id = FirebaseInstanceId.getInstance().getToken();
@@ -340,12 +445,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     CommonUtils.dismissProgress();
                     if (response.body() != null) {
                         if (response.body().getSuccess().equalsIgnoreCase("1")) {
+                            //if number is register
                             App.getAppPreferences().saveToken(activity);
                             App.getAppPreferences().TempClear(activity);
                             App.getAppPreferences().saveUserId(activity, response.body().getDetails().getId());
                             startActivity(new Intent(activity, HomeActivity.class));
                             finishAffinity();
                         } else if (response.body().getSuccess().equalsIgnoreCase("2")) {
+                            //if number is not register
                             App.getAppPreferences().saveUserId(activity, response.body().getDetails().getId());
                             Toast.makeText(activity, response.body().getDetails().getOtp() + "", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(activity, VarificationActivity.class));
@@ -367,6 +474,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    //callback from Facebook
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);

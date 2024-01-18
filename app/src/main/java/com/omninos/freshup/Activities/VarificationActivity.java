@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,7 @@ import com.omninos.freshup.Retrofit.Api;
 import com.omninos.freshup.Retrofit.ApiClient;
 import com.omninos.freshup.Utils.App;
 import com.omninos.freshup.Utils.CommonUtils;
+import com.omninos.freshup.util.LocaleHelper;
 
 import java.util.Map;
 
@@ -38,7 +40,11 @@ public class VarificationActivity extends AppCompatActivity implements View.OnCl
     private Button varify;
     private String otp_1, otp_2, otp_3, otp_4, compeleteOtp, OTP;
     private VarificationActivity activity;
-    private TextView resend;
+    private TextView resend, varifyText, demotext;
+
+
+    Context context;
+    Resources resources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,17 +52,32 @@ public class VarificationActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_varification);
 
         activity = VarificationActivity.this;
+
+        context = LocaleHelper.setLocale(VarificationActivity.this, App.getAppPreferences().getLanguage(VarificationActivity.this));
+        resources = context.getResources();
+
+
         initView();
+        ChangeLanguage();
 
 
+        //Single digit EditText
         first.addTextChangedListener(generalTextWatcher);
         second.addTextChangedListener(generalTextWatcher);
         third.addTextChangedListener(generalTextWatcher);
         fourth.addTextChangedListener(generalTextWatcher);
-
     }
 
+    private void ChangeLanguage() {
+        varifyText.setText(resources.getString(R.string.verification));
+        demotext.setText(resources.getString(R.string.enter_your_verification_code));
+        varify.setText(resources.getString(R.string.verify_code));
+        resend.setText(resources.getString(R.string.resend_verification_code));
+    }
+
+    //Find All Id's
     private void initView() {
+        //check otp null or not
         if (App.getAppPreferences().getOTP() != null) {
             OTP = App.getAppPreferences().getOTP();
         }
@@ -68,11 +89,16 @@ public class VarificationActivity extends AppCompatActivity implements View.OnCl
         resend = findViewById(R.id.resend);
 
 
+        //set Actions
         varify.setOnClickListener(this);
         resend.setOnClickListener(this);
+
+        varifyText = findViewById(R.id.varifyText);
+        demotext = findViewById(R.id.demotext);
     }
 
 
+    //Fill Otp fields
     TextWatcher generalTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -124,14 +150,17 @@ public class VarificationActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.varify:
+                //Check Otp
                 CheckOtp();
                 break;
             case R.id.resend:
+                //Resend Otp
                 resendOtp();
                 break;
         }
     }
 
+    //Resend Otp
     private void resendOtp() {
         if (CommonUtils.isNetworkConnected(activity)) {
 
@@ -152,6 +181,7 @@ public class VarificationActivity extends AppCompatActivity implements View.OnCl
                         }
                     }
                 }
+
                 @Override
                 public void onFailure(Call<OtpPojo> call, Throwable t) {
                     CommonUtils.dismissProgress();
@@ -163,6 +193,7 @@ public class VarificationActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
+    //Check Otp
     private void CheckOtp() {
         otp_1 = first.getText().toString().trim();
         otp_2 = second.getText().toString().trim();
@@ -226,6 +257,11 @@ public class VarificationActivity extends AppCompatActivity implements View.OnCl
         View view = layoutInflater.inflate(R.layout.custom_dialog_box_varify, null);
 
         Button verify = view.findViewById(R.id.done);
+        TextView varifyTexts=view.findViewById(R.id.varifyTexts);
+
+
+        verify.setText(resources.getString(R.string.done));
+        varifyTexts.setText(resources.getString(R.string.your_mobile_number_successfully_verified));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(view);

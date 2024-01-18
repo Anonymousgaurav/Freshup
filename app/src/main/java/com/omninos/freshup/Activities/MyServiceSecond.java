@@ -2,7 +2,9 @@ package com.omninos.freshup.Activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +31,7 @@ import com.omninos.freshup.Retrofit.Api;
 import com.omninos.freshup.Retrofit.ApiClient;
 import com.omninos.freshup.Utils.App;
 import com.omninos.freshup.Utils.CommonUtils;
+import com.omninos.freshup.util.LocaleHelper;
 
 import org.joda.time.DateTime;
 
@@ -42,6 +45,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import noman.weekcalendar.WeekCalendar;
+import noman.weekcalendar.eventbus.Event;
 import noman.weekcalendar.listener.OnDateClickListener;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,7 +58,7 @@ public class MyServiceSecond extends AppCompatActivity implements View.OnClickLi
     private TimeAdapter adapter;
     private WeekCalendar weekCalendar;
     private ImageView back, product_item, backImage;
-    private TextView item_text, serviceTitle, datedayData;
+    private TextView item_text, serviceTitle, datedayData, holidays, closeShop, sign, holidaysDate;
     private Button next;
     private RecyclerView babardetailList;
     private BarbarDetailAdapter barbarDetailAdapter;
@@ -71,12 +75,17 @@ public class MyServiceSecond extends AppCompatActivity implements View.OnClickLi
     SimpleDateFormat sdf, sdf1;
 
 
-    String currentDate,Price;
+    String currentDate, Price;
     DateFormat dateFormat;
     int dateDatavalue = 0;
 
 
     String StrServiceId, StrTimeslot, datedata = "", barbarId = "";
+
+    Context context;
+    Resources resources;
+
+    private TextView dataDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +93,13 @@ public class MyServiceSecond extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_my_service_second);
 
         activity = MyServiceSecond.this;
+
+        context = LocaleHelper.setLocale(MyServiceSecond.this, App.getAppPreferences().getLanguage(MyServiceSecond.this));
+        resources = context.getResources();
+
         initView();
+        ChangeLanguage();
+
         RecyclerViewSetUP();
         SetUps();
 
@@ -93,12 +108,15 @@ public class MyServiceSecond extends AppCompatActivity implements View.OnClickLi
         sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf1 = new SimpleDateFormat("EEEE MMMM dd, yyyy");
         datedata = sdf.format(cal.getTime());
+        App.getAppPreferences().setSelecteAppointmentDate(datedata);
 
         final Date date = new Date();
         currentDate = sdf.format(date);
         datedayData.setText(sdf1.format(date));
         getbarbarDetails(datedata);
         weekCalendar.reset();
+
+
         weekCalendar.setOnDateClickListener(new OnDateClickListener() {
             @Override
             public void onDateClick(DateTime dateTime) {
@@ -118,6 +136,7 @@ public class MyServiceSecond extends AppCompatActivity implements View.OnClickLi
                     if (Current.getTime() <= select.getTime()) {
                         dateDatavalue = 0;
                         getbarbarDetails(datedata);
+                        App.getAppPreferences().setSelecteAppointmentDate(datedata);
                         datedayData.setText(sdf1.format(dateTime.toDate()));
                     } else {
                         dateDatavalue = 1;
@@ -129,6 +148,13 @@ public class MyServiceSecond extends AppCompatActivity implements View.OnClickLi
             }
         });
 
+    }
+
+    private void ChangeLanguage() {
+        dataDay.setText(resources.getString(R.string.select_the_date));
+        sign.setText(resources.getString(R.string.pick_a_time_slot));
+        next.setText(resources.getString(R.string.bt_next));
+        closeShop.setText(resources.getString(R.string.shop_close));
     }
 
 
@@ -147,37 +173,53 @@ public class MyServiceSecond extends AppCompatActivity implements View.OnClickLi
                 public void onResponse(Call<BarbarDetailsModel> call, Response<BarbarDetailsModel> response) {
                     CommonUtils.dismissProgress();
                     if (response.body().getSuccess().equalsIgnoreCase("1")) {
+                        babardetailList.setVisibility(View.VISIBLE);
+                        closeShop.setVisibility(View.GONE);
+                        sign.setVisibility(View.VISIBLE);
+                        next.setVisibility(View.VISIBLE);
 
-                        int size = response.body().getDetails().getBarberDeatils().size();
+                        if (response.body().getDetails().getBarberDeatils() != null) {
 
-                        for (int i = 0; i < size; i++) {
-                            BarbarDetailsModel model = new BarbarDetailsModel();
-                            BarbarDetailsModel.Details details = new BarbarDetailsModel.Details();
+                            int size = response.body().getDetails().getBarberDeatils().size();
 
-                            details.setBarberDeatils(response.body().getDetails().getBarberDeatils());
-                            details.setTimeSlotDetails(response.body().getDetails().getTimeSlotDetails());
+                            for (int i = 0; i < size; i++) {
+                                BarbarDetailsModel model = new BarbarDetailsModel();
+                                BarbarDetailsModel.Details details = new BarbarDetailsModel.Details();
 
-                            startTime = response.body().getDetails().getTimeSlotDetails().getStartTime();
-                            lastTime = response.body().getDetails().getTimeSlotDetails().getEndTime();
+                                details.setBarberDeatils(response.body().getDetails().getBarberDeatils());
+                                details.setTimeSlotDetails(response.body().getDetails().getTimeSlotDetails());
 
-                            detailList.add(details);
-                            model.setDetails(details);
-                            list.add(model);
-                        }
+                                startTime = response.body().getDetails().getTimeSlotDetails().getStartTime();
+                                lastTime = response.body().getDetails().getTimeSlotDetails().getEndTime();
+                                holidays.setText(resources.getString(R.string.holiday) + " : " + response.body().getDetails().getTimeSlotDetails().getNonWorkingDays());
+                                if (!response.body().getDetails().getTimeSlotDetails().getHolidayStartDate().isEmpty()) {
+                                    holidaysDate.setText("Holidays Date: " + response.body().getDetails().getTimeSlotDetails().getHolidayStartDate() + " to " + response.body().getDetails().getTimeSlotDetails().getHolidayEndDate());
+                                }
+                                detailList.add(details);
+                                model.setDetails(details);
+                                list.add(model);
+                            }
 
-                        //displayTimeSlots(startTime,lastTime);
-                        barbarDetailAdapter = new BarbarDetailAdapter(activity, list, new BarbarDetailAdapter.Selectbarbar() {
-                            @Override
-                            public void ChooseBarbar(int position) {
+                            //displayTimeSlots(startTime,lastTime);
+                            barbarDetailAdapter = new BarbarDetailAdapter(activity, list, new BarbarDetailAdapter.Selectbarbar() {
+                                @Override
+                                public void ChooseBarbar(int position) {
+
 //                                App.getAppPreferences().setBarbarName(list.get(position).getDetails().getBarberDeatils().get(position).getId());
 //                                barbarId=list.get(position).getDetails().getBarberDeatils().get(position).getId();
 
 //                                Toast.makeText(activity, list.get(position).getDetails().getBarberDeatils().get(position).getName(), Toast.LENGTH_SHORT).show();
 
-                            }
-                        });
-                        babardetailList.setAdapter(barbarDetailAdapter);
+                                }
+                            });
+                            babardetailList.setAdapter(barbarDetailAdapter);
 
+                        }
+                    } else if (response.body().getSuccess().equalsIgnoreCase("2")) {
+                        babardetailList.setVisibility(View.GONE);
+                        sign.setVisibility(View.GONE);
+                        closeShop.setVisibility(View.VISIBLE);
+                        next.setVisibility(View.GONE);
                     } else {
                         Toast.makeText(activity, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -193,7 +235,6 @@ public class MyServiceSecond extends AppCompatActivity implements View.OnClickLi
         } else {
             Toast.makeText(activity, "Network Issue", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private void SetUps() {
@@ -214,13 +255,19 @@ public class MyServiceSecond extends AppCompatActivity implements View.OnClickLi
         product_item = findViewById(R.id.product_item);
         backImage = findViewById(R.id.backImage);
         serviceTitle = findViewById(R.id.serviceTitle);
+        holidays = findViewById(R.id.holidays);
+        closeShop = findViewById(R.id.closeShop);
+        sign = findViewById(R.id.sign);
+        holidaysDate = findViewById(R.id.holidaysDate);
+
+        dataDay = findViewById(R.id.dataDay);
 
 
         item_text.setText(getIntent().getStringExtra("Title"));
         Glide.with(activity).load(getIntent().getStringExtra("Image")).into(product_item);
         Glide.with(activity).load(getIntent().getStringExtra("backImage")).into(backImage);
         serviceTitle.setText(getIntent().getStringExtra("Heading"));
-        Price=getIntent().getStringExtra("Price");
+        Price = getIntent().getStringExtra("Price");
 
 
     }
@@ -333,6 +380,18 @@ public class MyServiceSecond extends AppCompatActivity implements View.OnClickLi
         TextView timeSlot = view.findViewById(R.id.timeSlot);
         Button done = view.findViewById(R.id.done);
         Button cancel = view.findViewById(R.id.cancel);
+        TextView textService = view.findViewById(R.id.textService);
+        TextView textBarberName = view.findViewById(R.id.textBarberName);
+        TextView textAppointmentDate = view.findViewById(R.id.textAppointmentDate);
+        TextView textSlote = view.findViewById(R.id.textSlote);
+
+        textService.setText(resources.getString(R.string.services));
+        textBarberName.setText(resources.getString(R.string.barber_name));
+        textAppointmentDate.setText(resources.getString(R.string.appointment_date));
+        textSlote.setText(resources.getString(R.string.time_slot));
+        done.setText(resources.getString(R.string.done));
+        cancel.setText(resources.getString(R.string.cancel));
+
 
         services.setText(App.getAppPreferences().getSaveServiceName());
         barbarname.setText(App.getAppPreferences().getBarbarName());
@@ -401,7 +460,7 @@ public class MyServiceSecond extends AppCompatActivity implements View.OnClickLi
         intent.putExtra("barbarId", barbarId);
         intent.putExtra("datedata", datedata);
         intent.putExtra("StrTimeslot", StrTimeslot);
-        intent.putExtra("Price",Price);
+        intent.putExtra("Price", Price);
         startActivity(intent);
 
     }
